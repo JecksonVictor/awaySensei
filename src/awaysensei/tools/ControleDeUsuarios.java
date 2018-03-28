@@ -23,4 +23,12 @@ public class ControleDeUsuarios {
 	public void setListaDeUsuarios(ArrayList<Usuario> listaDeUsuarios) {
 		this.listaDeUsuarios = listaDeUsuarios;
 	}
+	
+	public void listarUsuarios() {
+		
+		for (Iterator<Usuario> iterator = listaDeUsuarios.iterator(); iterator.hasNext(); ) {  
+			   Usuario u = iterator.next();  
+			   System.out.println (u.getNomeDeUsuario() + "-" + u.getSenha());
+			}
+	}
 }

@@ -50,6 +50,8 @@ public class TelaInicial {
 		Usuario user_ = new Usuario(nomedeusuario_,senha_);
 		controlador.addUsuario(user_);
 		System.out.println("Usuario cadastrado com sucesso.");
+		System.out.println("Lista de usuários:");
+		controlador.listarUsuarios();
 	}
 	
 	public void Entrar() {
