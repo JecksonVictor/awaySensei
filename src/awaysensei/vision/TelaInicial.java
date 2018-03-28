@@ -50,12 +50,22 @@ public class TelaInicial {
 		Usuario user_ = new Usuario(nomedeusuario_,senha_);
 		controlador.addUsuario(user_);
 		System.out.println("Usuario cadastrado com sucesso.");
-		System.out.println("Lista de usuários:");
+		System.out.println("Lista de usuï¿½rios:");
 		controlador.listarUsuarios();
+		this.Executar();
 	}
 	
-	public void Entrar() {
-		System.out.println("Entrando.");
+	public void Entrar(String nomeDeUsuario, String senha) {
+		System.out.println("Logando usuario");
+		Usuario user = new Usuario(nomeDeUsuario, senha);
+		Autenticador autenticador;
+		String loginID = (autenticador.autenticar(controlador, user));
+		if (equals(loginID, NULL)){
+			System.out.println("Senha incorreta para o usuÃ¡rio " + nomeDeUsuario);
+		} else {
+			System.out.println(nomeDeUsuario + " logado com sucesso");
+			controlador.setUsuarioOnline(loginID);
+		}
 	}
 	
 	public void Encerrar() {
