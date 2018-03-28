@@ -1,5 +1,6 @@
 package awaysensei.vision;
 
+import awaysensei.core.Usuario;
 import java.util.Scanner;
 
 import awaysensei.core.Pupilo;
@@ -8,11 +9,10 @@ import awaysensei.tools.ControleDeUsuarios;
 public class TelaPupilo {
 	private boolean ativa;
 	private Pupilo pupilo;
-	private ControleDeTreino controlador;
+	private ControleDeTreinos controlador;
 	
-	public TelaInicial() {
-		this.visitante = new Visitante();
-		this.controlador = new ControleDeUsuarios();
+	public TelaPupilo(Pupilo pupilo_) {
+		pupilo = pupilo;
 	}
 	
 }
