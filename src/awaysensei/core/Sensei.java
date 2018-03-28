@@ -1,7 +1,7 @@
 package awaysensei.core;
 
-public class Sensei {
-	//Também outro array de treinos, posteriormente
+public class Sensei extends Usuario{
+	//Tambï¿½m outro array de treinos, posteriormente
 	private Treino treinosSalvos;
 	
 	public void criarTreino(Video video_, String descricao_){
