@@ -2,6 +2,7 @@ package awaysensei.vision;
 
 import java.util.Scanner;
 
+import awaysensei.core.Pupilo;
 import awaysensei.core.Usuario;
 import awaysensei.core.Visitante;
 import awaysensei.tools.ControleDeUsuarios;
@@ -29,7 +30,7 @@ public class TelaInicial {
 				token = leitor.nextInt();
 			switch (token) {
 			case 1:
-				this.Cadastrar();
+				this.Cadastrar(leitor.next(), leitor.next());
 				break;
 			case 2:
 				this.Entrar();
@@ -44,8 +45,11 @@ public class TelaInicial {
 			}
 		}
 
-	public void Cadastrar() {
+	public void Cadastrar(String nomedeusuario_, String senha_) {
 		System.out.println("Cadastrando usuario.");
+		Usuario user_ = new Usuario(nomedeusuario_,senha_);
+		controlador.addUsuario(user_);
+		System.out.println("Usuario cadastrado com sucesso.");
 	}
 	
 	public void Entrar() {

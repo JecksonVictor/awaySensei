@@ -8,6 +8,10 @@ public class ControleDeUsuarios {
 
 	private ArrayList<Usuario> listaDeUsuarios;
 	
+	public ControleDeUsuarios() {
+		this.listaDeUsuarios = new ArrayList<Usuario>();
+	}
+	
 	public void addUsuario(Usuario usuario_) {
 		listaDeUsuarios.add(usuario_);
 	}

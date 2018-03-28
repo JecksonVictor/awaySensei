@@ -5,6 +5,9 @@ public class Pupilo extends Usuario{
 	//Testar com 1 treino, mas aqui será um array de treinos
 	public Treino treino1_;
 
+	public Pupilo(String usuario, String senha) {
+		super(usuario, senha);
+	}
 	public Treino getTreino1_() {
 		return treino1_;
 	}
