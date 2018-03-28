@@ -9,7 +9,7 @@ import awaysensei.tools.ControleDeUsuarios;
 public class TelaPupilo {
 	private boolean ativa;
 	private Pupilo pupilo;
-	private ControleDeTreinos controlador;
+	//private ControleDeTreinos controlador;
 	
 	public TelaPupilo(Pupilo pupilo_) {
 		pupilo = pupilo;

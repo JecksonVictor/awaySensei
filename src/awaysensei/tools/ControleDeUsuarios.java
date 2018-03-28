@@ -2,6 +2,8 @@ package awaysensei.tools;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
+
 import awaysensei.core.Usuario;
 
 public class ControleDeUsuarios {
@@ -10,10 +12,12 @@ public class ControleDeUsuarios {
 	private static ArrayList<String> listaDeUsuariosOnline;
 	
 	public ControleDeUsuarios() {
-		this.listaDeUsuarios = new ArrayList<Usuario>();
+		listaDeUsuarios = new ArrayList<Usuario>();
 	}
 	
 	public void addUsuario(Usuario usuario_) {
+		Random rand = new Random();
+		usuario_.setUniqueID(String.valueOf(rand.nextInt(100)));
 		listaDeUsuarios.add(usuario_);
 	}
 
@@ -22,14 +26,14 @@ public class ControleDeUsuarios {
 	}
 
 	public void setListaDeUsuarios(ArrayList<Usuario> listaDeUsuarios) {
-		this.listaDeUsuarios = listaDeUsuarios;
+		listaDeUsuarios = listaDeUsuarios;
 	}
 	
 	public void listarUsuarios() {		
 		for (Iterator<Usuario> iterator = listaDeUsuarios.iterator(); iterator.hasNext(); ) {  
-			   Usuario u = iterator.next();  
-			   System.out.println (u.getNomeDeUsuario() + "-" + u.getSenha());
-			}
+			Usuario u = iterator.next();  
+			System.out.println (u.getNomeDeUsuario() + "-" + u.getSenha());
+		}
 	}
 
 	public void setUsuarioOnline(String usuarioID){
@@ -37,8 +41,8 @@ public class ControleDeUsuarios {
 	}
 
 	public void setUsuarioOffline(String usuarioID){
-		for (String listaDeUsuariosOnline : it){
-			if (equals(usuarioID, it)){
+		for (String it : listaDeUsuariosOnline){
+			if (usuarioID.equals(it)){
 				listaDeUsuariosOnline.remove(usuarioID);
 				break;
 			}			
