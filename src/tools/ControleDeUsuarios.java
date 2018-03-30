@@ -28,21 +28,12 @@ public class ControleDeUsuarios {
             
             this.addUsuario(sen1);
             this.addUsuario(sen2);
-            
-            for(Usuario user: this.listaDeUsuarios){
-                System.out.println("Nome: "+user.getNomeDeUsuario()+" Senha: "+user.getSenha() +" ID: "+user.getUniqueID());
-            }
 	}
 	
 	public void addUsuario(Usuario usuario_) {
             Random rand = new Random();
             usuario_.setUniqueID(String.valueOf(rand.nextInt(100)));
             this.listaDeUsuarios.add(usuario_);
-            
-            for(Usuario user: this.listaDeUsuarios){
-                System.out.println("Nome: "+user.getNomeDeUsuario()+" Senha: "+user.getSenha() +" ID: "+user.getUniqueID());
-            }
-            
             this.saver.save(this.listaDeUsuarios);
 	}
 

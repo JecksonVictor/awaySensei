@@ -7,7 +7,10 @@ package vision;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import run.Main;
 
 /**
  * FXML Controller class
@@ -16,6 +19,11 @@ import javafx.fxml.Initializable;
  */
 public class PupiloFXMLController implements Initializable {
 
+    @FXML
+    private void sair(ActionEvent event) {
+        Main.mudarTela("telaLogin");
+    }
+    
     /**
      * Initializes the controller class.
      */

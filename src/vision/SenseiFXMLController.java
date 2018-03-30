@@ -7,9 +7,13 @@ package vision;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import run.Main;
 
 /**
@@ -24,12 +28,20 @@ public class SenseiFXMLController implements Initializable {
         Main.mudarTela("telaLogin");
     }
     
+    @FXML
+    ListView listaAlunos;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        ObservableList<String> names = FXCollections.observableArrayList();
+        names.add("Definition of First Word");
+        names.add("Second Word");
+        names.add("Third Word");
+        listaAlunos = new ListView<>(names);
     }    
     
 }
