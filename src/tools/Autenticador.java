@@ -1,4 +1,5 @@
 package tools;
+import core.Sensei;
 import core.Usuario;
 import java.util.ArrayList;
 
@@ -16,7 +17,10 @@ public class Autenticador {
         for (Usuario it : listaUsuarios) {
             if (usuario.getNomeDeUsuario().equals(it.getNomeDeUsuario())){
                 if (usuario.getSenha().equals(it.getSenha())){
-                    return it.getUniqueID();
+                    if(it instanceof Sensei){
+                        return "sensei";
+                    }
+                    return "aluno";
                 }
                 return "SI";
             }

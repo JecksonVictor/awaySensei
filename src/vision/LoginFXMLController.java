@@ -56,12 +56,15 @@ public class LoginFXMLController implements Initializable {
         
         String loginID = aut.autenticar(controlador, user);
         
-        System.out.println(loginID);
-        
-        if (loginID != null && !"SI".equals(loginID)){
-            Main.mudarTela("telaPupilo");
-        } else {
-            senhaIncorreta.setVisible(true);
+        switch(loginID){
+            case "aluno":
+                Main.mudarTela("telaPupilo");
+                break;
+            case "sensei":
+                Main.mudarTela("telaSensei");
+                break;
+            default:
+                senhaIncorreta.setVisible(true);
         }
     }
     

@@ -1,5 +1,6 @@
 package tools;
 
+import core.Sensei;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -21,6 +22,12 @@ public class ControleDeUsuarios {
             if(aux != null){
                 this.listaDeUsuarios = aux;
             }
+            
+            Sensei sen1 = new Sensei("sensei1", "123");
+            Sensei sen2 = new Sensei("sensei2", "123");
+            
+            this.addUsuario(sen1);
+            this.addUsuario(sen2);
             
             for(Usuario user: this.listaDeUsuarios){
                 System.out.println("Nome: "+user.getNomeDeUsuario()+" Senha: "+user.getSenha() +" ID: "+user.getUniqueID());

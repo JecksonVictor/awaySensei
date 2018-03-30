@@ -1,7 +1,13 @@
 package core;
 
 public class Sensei extends Usuario{
-    //Tamb�m outro array de treinos, posteriormente
+    public Sensei() {
+    }
+
+    public Sensei(String nomeDeUsuario_, String senha_) {
+        super(nomeDeUsuario_, senha_);
+    }
+    //Também outro array de treinos, posteriormente
     private Treino treinosSalvos;
 
     public void criarTreino(Video video_, String descricao_){
