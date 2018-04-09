@@ -1,18 +1,30 @@
 package core;
 
+import java.util.ArrayList;
+
 public class Pupilo extends Usuario{
 
     //Testar com 1 treino, mas aqui ser� um array de treinos
-    public Treino treino1_;
+    public ArrayList<Treino> treinos;
 
     public Pupilo(String usuario, String senha) {
-            super(usuario, senha);
-    }
-    public Treino getTreino1_() {
-            return treino1_;
+        super(usuario, senha);
     }
 
-    public void setTreino1_(Treino treino1_) {
-            this.treino1_ = treino1_;
+    public Pupilo(ArrayList<Treino> treinos, String nomeDeUsuario_, String senha_) {
+        super(nomeDeUsuario_, senha_);
+        this.treinos = treinos;
+    }
+
+    public ArrayList<Treino> getTreinos() {
+        return treinos;
+    }
+
+    public void setTreinos(ArrayList<Treino> treinos) {
+        this.treinos = treinos;
+    }
+
+    public void addTreino(Treino treino){
+        this.treinos.add(treino);
     }
 }
