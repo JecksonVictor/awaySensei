@@ -1,28 +1,37 @@
 package core;
 
+import java.util.ArrayList;
+
 public class Sensei extends Usuario{
+    
+    //Também outro array de treinos, posteriormente
+    private ArrayList<Treino> treinosSalvos;
+    
     public Sensei() {
+    }
+
+    public Sensei(ArrayList<Treino> treinosSalvos) {
+        this.treinosSalvos = treinosSalvos;
     }
 
     public Sensei(String nomeDeUsuario_, String senha_) {
         super(nomeDeUsuario_, senha_);
+        this.treinosSalvos = new ArrayList<Treino>();
     }
-    //Também outro array de treinos, posteriormente
-    private Treino treinosSalvos;
 
     public void criarTreino(Video video_, String descricao_){
-        this.treinosSalvos = new Treino(video_,descricao_);
+        this.treinosSalvos.add(new Treino(video_,descricao_));
     }
 
     public void cadastrarTreino(Pupilo pupilo_, Treino treino_) {
-        pupilo_.setTreino1_(treino_);
+        pupilo_.addTreino(treino_);
     }
 
-    public Treino getTreinosSalvos() {
+    public ArrayList<Treino> getTreinosSalvos() {
         return treinosSalvos;
     }
 
-    public void setTreinosSalvos(Treino treinosSalvos) {
+    public void setTreinosSalvos(ArrayList<Treino> treinosSalvos) {
         this.treinosSalvos = treinosSalvos;
     }
 }

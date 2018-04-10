@@ -39,7 +39,7 @@ public class UsersFileDao implements UsersDao{
     }
 
     @Override
-    public void addUser(ArrayList<Usuario> user) {
+    public void addUser(Usuario user) {
         try {
             File file = new File("users.dat");
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file));

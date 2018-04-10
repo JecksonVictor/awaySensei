@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author JC
  */
 public interface UsersDao {
-    public void addUser(ArrayList<Usuario> user);
+    public void addUser(Usuario user);
     
     public ArrayList<Usuario> getUsers();
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="553.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="vision.CadastroFXMLController">
+   <children>
+      <BorderPane layoutX="209.0" layoutY="169.0" prefHeight="200.0" prefWidth="200.0" />
+      <Pane layoutX="85.0" layoutY="42.0" maxWidth="400.0" prefHeight="454.0" prefWidth="400.0" style="-fx-background-color: #cecece;">
+         <children>
+            <TextField fx:id="nome" layoutX="25.0" layoutY="25.0" onDragExited="#name" prefHeight="25.0" prefWidth="350.0" />
+            <Label layoutX="183.0" layoutY="8.0" prefHeight="17.0" prefWidth="36.0" text="Nome" />
+            <Label layoutX="187.0" layoutY="70.0" text="Email" />
+            <TextField fx:id="email" layoutX="25.0" layoutY="90.0" onDragExited="#email" prefHeight="25.0" prefWidth="350.0" />
+            <ComboBox fx:id="sexo" layoutX="25.0" layoutY="340.0" onDragExited="#sexo" prefHeight="11.0" prefWidth="350.0" promptText="Sou do sexo" />
+            <Label layoutX="188.0" layoutY="318.0" text="Sexo" />
+            <Label layoutX="186.0" layoutY="197.0" text="Senha" />
+            <Label layoutX="158.0" layoutY="259.0" text="Confirmar senha" />
+            <TextField fx:id="senha" layoutX="25.0" layoutY="215.0" onDragExited="#senha" prefWidth="350.0" />
+            <TextField fx:id="confirmeSenha" layoutX="25.0" layoutY="276.0" maxWidth="350.0" onDragExited="#confirmeSenha" prefWidth="350.0" />
+            <TextField fx:id="login" layoutX="25.0" layoutY="158.0" onDragExited="#login" prefWidth="350.0" />
+            <Label layoutX="187.0" layoutY="135.0" text="Login" />
+            <Button layoutX="69.0" layoutY="410.0" mnemonicParsing="false" onDragExited="#Cancelar" style="-fx-background-color: #4589F7;" text="Cancelar" textFill="WHITE" />
+            <Button layoutX="277.0" layoutY="410.0" mnemonicParsing="false" onDragExited="#Cadastrar" style="-fx-background-color: #4589F7;" text="Cadastrar" textFill="WHITE" />
+            <Label fx:id="nomeAviso" layoutX="144.0" layoutY="50.0" text="Preencha este campo" textFill="#eb0a0a" visible="false" />
+            <Label fx:id="emailAviso" layoutX="146.0" layoutY="117.0" text="Preencha este campo" textFill="#eb0a0a" visible="false" />
+            <Label fx:id="loginAviso" layoutX="145.0" layoutY="180.0" text="Preencha este campo" textFill="#eb0a0a" visible="false" />
+            <Label fx:id="senhaAviso" layoutX="146.0" layoutY="242.0" text="Preencha este campo" textFill="#eb0a0a" visible="false" />
+            <Label fx:id="confirmeSenhaAviso" layoutX="146.0" layoutY="299.0" text="As senha não batem" textFill="#eb0a0a" visible="false" />
+            <Label fx:id="sexoAviso" layoutX="137.0" layoutY="370.0" text="Selecione uma das opções" textFill="#eb0a0a" visible="false" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -5,8 +5,9 @@
  */
 package vision;
 
+import core.Pupilo;
+import core.Sensei;
 import core.Usuario;
-import core.Visitante;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -16,17 +17,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import run.Main;
+import static run.Main.pupiloLogado;
 import tools.Autenticador;
-import tools.ControleDeUsuarios;
 
 /**
  *
  * @author proae
  */
 public class LoginFXMLController implements Initializable {
-    
-    private Visitante visitante;
-    private ControleDeUsuarios controlador;
 
     @FXML
     TextField nome;
@@ -46,33 +44,29 @@ public class LoginFXMLController implements Initializable {
     }
     
     public void Cadastrar(String nomedeusuario_, String senha_) {
-        Usuario user_ = new Usuario(nomedeusuario_,senha_);
-        controlador.addUsuario(user_);
+        Pupilo pup_ = new Pupilo(nomedeusuario_,senha_);
+        Main.controlador.addPupilo(pup_);
     }
             
     public void Entrar(String nomeDeUsuario, String senha) {
-        Usuario user = new Usuario(nomeDeUsuario, senha);
         Autenticador aut = new Autenticador();
         
-        String loginID = aut.autenticar(controlador, user);
+        Usuario user = aut.autenticar(Main.controlador, new Usuario(nomeDeUsuario, senha));
         
-        switch(loginID){
-            case "aluno":
-                Main.mudarTela("telaPupilo");
-                break;
-            case "sensei":
-                Main.mudarTela("telaSensei");
-                break;
-            default:
-                senhaIncorreta.setVisible(true);
+        if (user instanceof Pupilo) {
+            Main.pupiloLogado = (Pupilo)user;
+            Main.mudarSensei(Main.pupiloLogado.getSenseiName());
+            Main.mudarTela("telaPupilo");
+        }else if (user instanceof Sensei) {
+            Main.mudarTela("telaSensei");
+        } else {
+            senhaIncorreta.setVisible(true);
         }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.visitante = new Visitante();
-        this.controlador = new ControleDeUsuarios();
     }    
     
 }

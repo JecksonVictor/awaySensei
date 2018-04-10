@@ -9,27 +9,27 @@ public class Treino {
 	}
 	
 	public Treino(Video video_, String descricao_) {
-		this.video = video_;
-		this.descricao = descricao_;
+            this.video = video_;
+            this.descricao = descricao_;
 	}
 	
 	public void exibirTreino() {
-		this.video.executarVideo();
+            this.video.executarVideo();
 	}
 
 	public Video getVideo() {
-		return video;
+            return video;
 	}
 
 	public void setVideo(Video video) {
-		this.video = video;
+            this.video = video;
 	}
 
 	public String getDescricao() {
-		return descricao;
+            return descricao;
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+            this.descricao = descricao;
 	}
 }

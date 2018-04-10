@@ -5,14 +5,15 @@
  */
 package run;
 
+import core.Pupilo;
 import core.Usuario;
-import daos.SaveUser;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import tools.ControleDeUsuarios;
 
 /**
  *
@@ -24,9 +25,13 @@ public class Main extends Application {
     private static Scene loginScene;
     private static Scene pupiloScene;
     private static Scene senseiScene;
+    public  static ControleDeUsuarios controlador;
+    public  static Pupilo pupiloLogado;
     
     @Override
     public void start(Stage stage2) throws Exception {
+        
+        this.controlador = new ControleDeUsuarios();
         
         stage = stage2;
         
@@ -43,6 +48,12 @@ public class Main extends Application {
         
         stage2.setScene(loginScene);
         stage2.show();
+    }
+    
+    public static void mudarSensei(String str){
+        Label lb = (Label) pupiloScene.lookup("#senseiNome");
+        pupiloLogado.setSenseiName(str);
+        lb.setText(str);
     }
     
     public static void mudarTela( String tela ) {
