@@ -8,6 +8,9 @@ public class Pupilo extends Usuario{
     public ArrayList<Treino> listTreinos;
     public String senseiName;
 
+    public Pupilo() {
+    }
+
     public String getSenseiName() {
         return senseiName;
     }

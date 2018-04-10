@@ -9,6 +9,7 @@ import core.Pupilo;
 import core.Sensei;
 import core.Usuario;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,14 +18,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import run.Main;
-import static run.Main.pupiloLogado;
 import tools.Autenticador;
 
 /**
  *
  * @author proae
  */
-public class LoginFXMLController implements Initializable {
+public class LoginFXMLController extends Observable implements Initializable {
 
     @FXML
     TextField nome;
@@ -54,8 +54,9 @@ public class LoginFXMLController implements Initializable {
         Usuario user = aut.autenticar(Main.controlador, new Usuario(nomeDeUsuario, senha));
         
         if (user instanceof Pupilo) {
-            Main.pupiloLogado = (Pupilo)user;
-            Main.mudarSensei(Main.pupiloLogado.getSenseiName());
+            super.setChanged();
+            super.notifyObservers(user);
+            
             Main.mudarTela("telaPupilo");
         }else if (user instanceof Sensei) {
             Main.mudarTela("telaSensei");

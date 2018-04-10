@@ -5,8 +5,11 @@
  */
 package vision;
 
+import core.Pupilo;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,14 +23,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import run.Main;
+import tools.PupiloBean;
 
 /**
  * FXML Controller class
  *
  * @author proae
  */
-public class PupiloFXMLController implements Initializable {
-
+public class PupiloFXMLController implements Initializable, Observer {
+    
     @FXML
     private void sair(ActionEvent event) {
         Main.mudarTela("telaLogin");
@@ -39,8 +43,7 @@ public class PupiloFXMLController implements Initializable {
     @FXML
     private void mudarSensei(ActionEvent event) throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/vision/EscolherSenseiFXML.fxml"));
-        stage.setScene(new Scene(root));
+        stage.setScene(Main.mudaSenseiScene);
         stage.setTitle("Mudar Sensei");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(((Node)event.getSource()).getScene().getWindow() );
@@ -56,6 +59,11 @@ public class PupiloFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    
-    
+    @Override
+    public void update(Observable theObservable, Object arg) {
+        if (theObservable instanceof PupiloBean) {
+            this.senseiNome.setText((String) arg);
+        }
+    }
+ 
 }

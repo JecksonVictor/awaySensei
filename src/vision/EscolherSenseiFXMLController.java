@@ -8,6 +8,7 @@ package vision;
 import core.Sensei;
 import core.Usuario;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -22,14 +23,15 @@ import run.Main;
  *
  * @author JC
  */
-public class EscolherSenseiFXMLController implements Initializable {
+public class EscolherSenseiFXMLController extends Observable implements Initializable {
 
     @FXML
     private ListView listaSenseis;
     
     @FXML
     private void selecionar(ActionEvent event) {
-        Main.mudarSensei(Main.controlador.getListaDeUsuarios().get(listaSenseis.getSelectionModel().getSelectedIndex()).getNomeDeUsuario());
+        super.setChanged();
+        super.notifyObservers(Main.controlador.getListaDeUsuarios().get(listaSenseis.getSelectionModel().getSelectedIndex()).getNomeDeUsuario());
         
         ((Button)event.getTarget()).getScene().getWindow().hide();
     }

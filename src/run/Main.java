@@ -7,6 +7,7 @@ package run;
 
 import core.Pupilo;
 import core.Usuario;
+import java.util.Observer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import tools.ControleDeUsuarios;
+import tools.PupiloBean;
+import vision.EscolherSenseiFXMLController;
+import vision.LoginFXMLController;
+import vision.PupiloFXMLController;
 
 /**
  *
@@ -25,35 +30,48 @@ public class Main extends Application {
     private static Scene loginScene;
     private static Scene pupiloScene;
     private static Scene senseiScene;
+    public static Scene mudaSenseiScene;
     public  static ControleDeUsuarios controlador;
-    public  static Pupilo pupiloLogado;
+    
+    private PupiloBean pup;
     
     @Override
     public void start(Stage stage2) throws Exception {
         
         this.controlador = new ControleDeUsuarios();
         
+        this.pup = new PupiloBean(new Pupilo());
+        
         stage = stage2;
         
         stage2.setTitle("Away Sensei");
         
-        Parent fxmlLogin = FXMLLoader.load(getClass().getResource("/vision/LoginFXML.fxml"));
-        loginScene = new Scene(fxmlLogin);
+        FXMLLoader fxmlLogin = new FXMLLoader(getClass().getResource("/vision/LoginFXML.fxml"));
+        loginScene = new Scene(fxmlLogin.load());
         
-        Parent fxmlPupilo = FXMLLoader.load(getClass().getResource("/vision/PupiloFXML.fxml"));
-        pupiloScene = new Scene(fxmlPupilo);
+        LoginFXMLController login = (LoginFXMLController)fxmlLogin.getController();
+        
+        login.addObserver(pup);
+        
+        FXMLLoader fxmlPupilo = new FXMLLoader(getClass().getResource("/vision/PupiloFXML.fxml"));
+        pupiloScene = new Scene(fxmlPupilo.load());
+        
+        PupiloFXMLController pupilo = (PupiloFXMLController)fxmlPupilo.getController();
+        
+        pup.addObserver(pupilo);
         
         Parent fxmlSensei = FXMLLoader.load(getClass().getResource("/vision/SenseiFXML.fxml"));
         senseiScene = new Scene(fxmlSensei);
         
+        FXMLLoader fxmlMudaSensei = new FXMLLoader(getClass().getResource("/vision/EscolherSenseiFXML.fxml"));
+        mudaSenseiScene =  new Scene(fxmlMudaSensei.load());
+        
+        EscolherSenseiFXMLController mudaSensei = (EscolherSenseiFXMLController)fxmlMudaSensei.getController();
+        
+        mudaSensei.addObserver(this.pup);
+        
         stage2.setScene(loginScene);
         stage2.show();
-    }
-    
-    public static void mudarSensei(String str){
-        Label lb = (Label) pupiloScene.lookup("#senseiNome");
-        pupiloLogado.setSenseiName(str);
-        lb.setText(str);
     }
     
     public static void mudarTela( String tela ) {
