@@ -120,6 +120,7 @@ public class Main extends Application implements Observer{
         }
     }
     
+    // Abre um modal com a lista de senseis cadastrados
     public void mudaSensei() {
         Stage st = new Stage();
         st.setScene(this.mudaSenseiScene);
@@ -135,21 +136,40 @@ public class Main extends Application implements Observer{
         launch(args);
     }
 
+    
+    // Faz update quando algum objeto observado é modificado
     @Override
     public void update(Observable theObservable, Object arg) {
+        
+        // Verifica se o objeto modificado foi a tela de pupilo
         if (theObservable instanceof PupiloFXMLController) {
+            // Verifica se o botão clicado foi de selecionar sensei
             if (arg == "mudaSensei") {
                 this.mudaSensei();
-            } else if (arg == "telaLogin") {
+            } 
+            // Verifica se o botão clicado foi de sair, se for
+            // abre a tela de login
+            else if (arg == "telaLogin") {
                 mudarTela("telaLogin");
             }
-        } else if (theObservable instanceof LoginFXMLController) {
+        } 
+        // Verifica se o objeto modificado foi a tela de login
+        else if (theObservable instanceof LoginFXMLController) {
+            // Verifica se o usuário logado é pupilo, se for
+            // abre a tela de pupilo
             if(arg == "telaPupilo") {
                 mudarTela("telaPupilo");
-            } else if(arg == "telaSensei") {
+            } 
+            // Verifica se o usuário logado é sensei, se for
+            // abre a tela de sensei
+            else if(arg == "telaSensei") {
                 mudarTela("telaSensei");
             }
-        } else if (theObservable instanceof SenseiFXMLController) {
+        } 
+        // Verifica se o objeto modificado foi a tela de sensei
+        else if (theObservable instanceof SenseiFXMLController) {
+            // Verifica se o botão clicado foi de sair, se for
+            // abre a tela de login
             if (arg == "telaLogin") {
                 mudarTela("telaLogin");
             }

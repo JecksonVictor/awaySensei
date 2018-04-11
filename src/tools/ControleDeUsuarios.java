@@ -55,10 +55,6 @@ public class ControleDeUsuarios extends Observable implements Observer{
         return this.users.getUsers();
     }
     
-//    public void cadastrarAula (Pupilo pup) {
-//        
-//    }
-
     @Override
     public void update(Observable theObservable, Object arg) {
         if (theObservable instanceof LoginFXMLController) {

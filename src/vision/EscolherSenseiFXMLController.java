@@ -29,18 +29,24 @@ public class EscolherSenseiFXMLController extends Observable implements Observer
     @FXML
     private ListView listaSenseis;
     
+    // Lista de senseis
     private ArrayList<Sensei> listaSensei;
     
+    // ButtonActionListener
     @FXML
     private void selecionar(ActionEvent event) {
+        
+        // Caso um sensei tenha sido selecionado o objeto puíloLogado é notificado
         super.setChanged();
         super.notifyObservers(this.listaSensei.get(listaSenseis.getSelectionModel().getSelectedIndex()).getNomeDeUsuario());
         
         ((Button)event.getTarget()).getScene().getWindow().hide();
     }
     
+    // ButtonActionListener
     @FXML
     private void cancelar(ActionEvent event) {
+        // Caso o botão cancelar foi clicado o modal é fechado
         ((Button)event.getTarget()).getScene().getWindow().hide();
     }
     
@@ -53,9 +59,13 @@ public class EscolherSenseiFXMLController extends Observable implements Observer
         this.listaSensei = new ArrayList<Sensei>();
     }    
 
+    // Metodo update da classe Observer 
     @Override
     public void update(Observable theObservable, Object arg) {
+         // Verifica se o objeto modificado foi o controlador de usuários
         if (theObservable instanceof ControleDeUsuarios) {
+             // Verifica se foi adiocionado um novo sensei, se foi
+             // ele é inserido na lista de senseis
             if (arg instanceof Sensei) {
                 this.listaSensei.add((Sensei)arg);  
                 this.updateList(((Sensei) arg).getNomeDeUsuario());
@@ -63,11 +73,10 @@ public class EscolherSenseiFXMLController extends Observable implements Observer
         }
     }
     
+    // Atualiza a lista de senseis
     public void updateList(String str) {
         listaSenseis.getItems().add(listaSenseis.getItems().size(), str);
         listaSenseis.scrollTo(listaSenseis.getItems().size() - 1);
-        
-        // list.edit(list.getItems().size() - 1);
 
         new AnimationTimer() {
 

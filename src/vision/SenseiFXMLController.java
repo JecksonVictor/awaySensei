@@ -13,9 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import run.Main;
 
 /**
  * FXML Controller class
