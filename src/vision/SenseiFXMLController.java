@@ -6,6 +6,7 @@
 package vision;
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,11 +22,12 @@ import run.Main;
  *
  * @author proae
  */
-public class SenseiFXMLController implements Initializable {
+public class SenseiFXMLController extends Observable implements Initializable {
 
     @FXML
     private void sair(ActionEvent event) {
-        Main.mudarTela("telaLogin");
+        super.setChanged();
+        super.notifyObservers("telaLogin");
     }
     
     @FXML

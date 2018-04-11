@@ -30,7 +30,9 @@ public class PupiloBean extends Observable implements Observer{
             
             this.mudaSensei();
         } else if (theObservable instanceof LoginFXMLController) {
-            this.pup = ((Pupilo) arg);
+            if (arg instanceof Pupilo) {
+                this.pup = ((Pupilo) arg);
+            }
         }
     }
     

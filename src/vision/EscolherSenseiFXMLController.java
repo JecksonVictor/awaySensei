@@ -6,9 +6,10 @@
 package vision;
 
 import core.Sensei;
-import core.Usuario;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -16,22 +17,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import run.Main;
+import tools.ControleDeUsuarios;
 
 /**
  * FXML Controller class
  *
  * @author JC
  */
-public class EscolherSenseiFXMLController extends Observable implements Initializable {
-
+public class EscolherSenseiFXMLController extends Observable implements Observer, Initializable {
+    
     @FXML
     private ListView listaSenseis;
+    
+    private ArrayList<Sensei> listaSensei;
     
     @FXML
     private void selecionar(ActionEvent event) {
         super.setChanged();
-        super.notifyObservers(Main.controlador.getListaDeUsuarios().get(listaSenseis.getSelectionModel().getSelectedIndex()).getNomeDeUsuario());
+        super.notifyObservers(this.listaSensei.get(listaSenseis.getSelectionModel().getSelectedIndex()).getNomeDeUsuario());
         
         ((Button)event.getTarget()).getScene().getWindow().hide();
     }
@@ -47,12 +50,22 @@ public class EscolherSenseiFXMLController extends Observable implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        for(Usuario user: Main.controlador.getListaDeUsuarios()){
-            if(user instanceof Sensei) {
-                listaSenseis.getItems().add(listaSenseis.getItems().size(), user.getNomeDeUsuario());
-                listaSenseis.scrollTo(listaSenseis.getItems().size() - 1);
+        this.listaSensei = new ArrayList<Sensei>();
+    }    
+
+    @Override
+    public void update(Observable theObservable, Object arg) {
+        if (theObservable instanceof ControleDeUsuarios) {
+            if (arg instanceof Sensei) {
+                this.listaSensei.add((Sensei)arg);  
+                this.updateList(((Sensei) arg).getNomeDeUsuario());
             }
         }
+    }
+    
+    public void updateList(String str) {
+        listaSenseis.getItems().add(listaSenseis.getItems().size(), str);
+        listaSenseis.scrollTo(listaSenseis.getItems().size() - 1);
         
         // list.edit(list.getItems().size() - 1);
 
@@ -70,6 +83,6 @@ public class EscolherSenseiFXMLController extends Observable implements Initiali
             }
 
         }.start();
-    }    
+    }
     
 }
