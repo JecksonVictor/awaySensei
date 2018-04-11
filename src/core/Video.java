@@ -1,8 +1,31 @@
-package core;
-
-public class Video {
-
-	public void executarVideo() {
-            System.out.println("Executando video...");
-	}
+package core; 
+ 
+public class Video { 
+    private String path; 
+    private String descricao; 
+ 
+    public Video(String path, String descricao){ 
+        this.path = path; 
+        this.descricao = descricao; 
+    } 
+    
+    public void executarVideo() { 
+        System.out.println("Executando video..."); 
+    }
+    
+    public String getPath() { 
+        return path; 
+    } 
+ 
+    public String getDescricao() { 
+        return descricao; 
+    } 
+ 
+    public void setPath(String path) { 
+        this.path = path; 
+    } 
+ 
+    public void setDescricao(String descricao) { 
+        this.descricao = descricao; 
+    }
 }

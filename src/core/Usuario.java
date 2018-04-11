@@ -67,17 +67,17 @@ public class Usuario extends Visitante implements Serializable{
 		this.bio = bio;
 	}
 	
-	//Utilizando o padrão de projeto Strategy, o tipo de atualização vai variar de acordo com as
-	//regras e opções na tela. Para cada tipo de atualização, uma estratégia diferente.
+	//Utilizando o padrao de projeto Strategy, o tipo de atualizacaoo vai variar de acordo com as
+	//regras e opcoes na tela. Para cada tipo de atualizacao, uma estrategia diferente.
 	
 	public void atualizarPerfil(String tipo_) {
 		AtualizadorDePerfil att;
-		if(tipo_ == "Atualizar nome") {
+		if(tipo_.equals("Atualizar nome")) {
 			att = new AtualizarNome();
 			att.atualizar(this);
 		}
 		
-		if(tipo_ ==  "Atualizar bio") {
+		if(tipo_.equals("Atualizar bio")) {
 			att = new AtualizarBio();
 			att.atualizar(this);
 		}
