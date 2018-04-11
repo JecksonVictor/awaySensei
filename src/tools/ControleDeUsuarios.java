@@ -1,69 +1,55 @@
 package tools;
 
+import DAO.UsersDao;
+import DAO.UsersMemoryDao;
+import core.Faixa;
+import core.Pupilo;
+import core.Sensei;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import core.Usuario;
-import daos.SaveUser;
+import javafx.scene.image.Image;
 
 public class ControleDeUsuarios {
+    private final UsersDao users;
+    private final Autenticador aut;
+    private final Usuario usuarioLogado;
+    
+    
+    public ControleDeUsuarios() {
+        this.users = new UsersMemoryDao();
+        this.aut = new Autenticador();
+        this.usuarioLogado = new Usuario();
+    }
 
-	private ArrayList<Usuario> listaDeUsuarios;
-	private ArrayList<String> listaDeUsuariosOnline;
-        private SaveUser saver;
-	
-	public ControleDeUsuarios() {
-            this.listaDeUsuarios = new ArrayList<Usuario>();
-            this.saver = new SaveUser();
-            this.listaDeUsuarios = new ArrayList<Usuario>();
-            ArrayList<Usuario> aux = this.saver.getList(); 
-            if(aux != null){
-                this.listaDeUsuarios = aux;
-            }
-            
-            for(Usuario user: this.listaDeUsuarios){
-                System.out.println("Nome: "+user.getNomeDeUsuario()+" Senha: "+user.getSenha() +" ID: "+user.getUniqueID());
-            }
-	}
-	
-	public void addUsuario(Usuario usuario_) {
+    public void addPupilo(Pupilo pup_) {
+        // Verifica se o usuário já existe na base de dados, 
+        // caso ainda não exista é cadastrado
+        if (this.aut.autenticar(this, pup_) == null) {
             Random rand = new Random();
-            usuario_.setUniqueID(String.valueOf(rand.nextInt(100)));
-            this.listaDeUsuarios.add(usuario_);
+            pup_.setUniqueID(String.valueOf(rand.nextInt(100)));
+            pup_.setFaixa(new Faixa("branca"));
+            pup_.setImage(new Image("/imgs/user.png"));
             
-            for(Usuario user: this.listaDeUsuarios){
-                System.out.println("Nome: "+user.getNomeDeUsuario()+" Senha: "+user.getSenha() +" ID: "+user.getUniqueID());
-            }
-            
-            this.saver.save(this.listaDeUsuarios);
-	}
+            pup_.setSenseiName("Não tem");
+            this.users.addUser(pup_);
+        }
+    }
+    
+    public void addSensei(Sensei sen_) {
+        
+        // Verifica se o usuário já existe na base de dados, 
+        // caso ainda não exista é cadastrado
+        if (this.aut.autenticar(this, sen_) == null) {
+            Random rand = new Random();
+            sen_.setUniqueID(String.valueOf(rand.nextInt(100)));
+            sen_.setImage(new Image("/imgs/user.png"));
+            this.users.addUser(sen_);
+        }
+    }
 
-	public ArrayList<Usuario> getListaDeUsuarios() {
-            return this.listaDeUsuarios;
-	}
-
-	public void setListaDeUsuarios(ArrayList<Usuario> listaDeUsuarios) {
-            this.listaDeUsuarios = listaDeUsuarios;
-	}
-	
-	public void listarUsuarios() {		
-            for (Iterator<Usuario> iterator = this.listaDeUsuarios.iterator(); iterator.hasNext(); ) {  
-                Usuario u = iterator.next();  
-                System.out.println (u.getNomeDeUsuario() + "-" + u.getSenha());
-            }
-	}
-
-	public void setUsuarioOnline(String usuarioID){
-            listaDeUsuariosOnline.add(usuarioID);
-	}
-
-	public void setUsuarioOffline(String usuarioID){
-            for (String it : listaDeUsuariosOnline){
-                if (usuarioID.equals(it)){
-                    listaDeUsuariosOnline.remove(usuarioID);
-                    break;
-                }			
-            }
-	}
+    public ArrayList<Usuario> getListaDeUsuarios() {
+        return this.users.getUsers();
+    }
 }

@@ -1,33 +1,35 @@
 package core;
 
-import java.util.ArrayList;
-
 public class Treino {
 
-	private ArrayList<Video> videos;
+	private Video video;
 	private String descricao;
 	
 	public Treino() {	
 	}
 	
-	public Treino(ArrayList<Video> video_, String descricao_) {
-		this.videos = video_;
-		this.descricao = descricao_;
+	public Treino(Video video_, String descricao_) {
+            this.video = video_;
+            this.descricao = descricao_;
+	}
+	
+	public void exibirTreino() {
+            this.video.executarVideo();
 	}
 
-    public ArrayList<Video> getVideos() {
-        return videos;
-    }
+	public Video getVideo() {
+            return video;
+	}
 
-    public void setVideos(ArrayList<Video> videos) {
-        this.videos = videos;
-    }
+	public void setVideo(Video video) {
+            this.video = video;
+	}
 
 	public String getDescricao() {
-		return descricao;
+            return descricao;
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+            this.descricao = descricao;
 	}
 }
