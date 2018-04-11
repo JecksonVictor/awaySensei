@@ -8,11 +8,14 @@ package DAO;
 import core.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,16 +25,44 @@ public class UsersFileDao implements UsersDao{
 
     public UsersFileDao() {
     }
+<<<<<<< HEAD:src/DAO/UsersFileDao.java
 
     @Override
     public ArrayList<Usuario> getUsers() {
+=======
+    
+    // Salva lista de objetos do tipo Usuario em users.dat
+    public void save(ArrayList<Usuario> user){
+        File file = null;
+        ObjectOutputStream output = null;
         try {
-            File file = new File("users.dat");
-                ObjectInputStream input = new ObjectInputStream(new
-                FileInputStream(file));
-                ArrayList<Usuario> users = (ArrayList<Usuario>) input.readObject();
+            file = new File("users.dat");
+            output = new ObjectOutputStream(new FileOutputStream(file));
+            
+            output.writeObject(user);
+            output.flush();
+            output.close();
+        } catch(FileNotFoundException e){            
+            System.out.println(e.toString());
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    // Recupera lista de objetos do tipo Usuario de users.dat
+    public ArrayList getList(){
+        File file = null;
+        ObjectInputStream input = null;
+>>>>>>> master:src/daos/SaveUser.java
+        try {
+            file = new File("users.dat");
+            input = new ObjectInputStream(new FileInputStream(file));
+            
+            ArrayList<Usuario> users = (ArrayList<Usuario>) input.readObject();
                 return users;
-        }catch(Exception e){
+        } catch(FileNotFoundException e){            
+            System.out.println(e.toString());
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println(e.toString());
         }
         
