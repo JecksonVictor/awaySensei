@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import core.Usuario;
+import java.util.Observable;
 import javafx.scene.image.Image;
 
-public class ControleDeUsuarios {
+public class ControleDeUsuarios extends Observable{
     private final UsersDao users;
     private final Autenticador aut;
-    private final Usuario usuarioLogado;
+    private static Usuario usuarioLogado;
     
     
     public ControleDeUsuarios() {
@@ -46,6 +47,9 @@ public class ControleDeUsuarios {
             sen_.setUniqueID(String.valueOf(rand.nextInt(100)));
             sen_.setImage(new Image("/imgs/user.png"));
             this.users.addUser(sen_);
+            
+            super.setChanged();
+            super.notifyObservers(sen_);
         }
     }
 

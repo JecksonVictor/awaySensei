@@ -5,6 +5,7 @@
  */
 package vision;
 
+import core.Pupilo;
 import core.Usuario;
 import java.net.URL;
 import java.util.Observable;
@@ -17,23 +18,24 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
+ * FXML Controller class
  *
- * @author José Carlos Emídio Pereira
+ * @author JC
  */
-public class LoginFXMLController extends Observable implements Initializable {
+public class CadastroFXMLController extends Observable implements Initializable {
 
     @FXML
     TextField nome;
     @FXML
     PasswordField senha;
     @FXML
-    private Label senhaIncorreta;
+    private Label aviso;
     
     @FXML
-    private void logar(ActionEvent event) {
-        Usuario user = new Usuario(this.nome.getText(), this.senha.getText());
+    private void cadastrar(ActionEvent event) {
+        Pupilo pup = new Pupilo(this.nome.getText(), this.senha.getText());
         super.setChanged();
-        super.notifyObservers(user);
+        super.notifyObservers(pup);
         
         this.nome.clear();
         this.senha.clear();
@@ -49,10 +51,15 @@ public class LoginFXMLController extends Observable implements Initializable {
     }
     
     public void aviso () {
-        this.senhaIncorreta.setVisible(true);
+        this.aviso.setVisible(true);
     }
     
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   }
+        // TODO
+    }    
+    
 }

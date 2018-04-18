@@ -7,17 +7,20 @@ package run;
 
 import core.Pupilo;
 import core.Sensei;
+import core.Usuario;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Beans.PupiloBean;
-import Beans.SenseiBean;
+import tools.Autenticador;
+import tools.ControleDeUsuarios;
+import vision.CadastroFXMLController;
 import vision.LoginFXMLController;
 import vision.PupiloFXMLController;
 import vision.SenseiFXMLController;
+import vision.TelaInicialFXMLController;
 
 /**
  *
@@ -25,7 +28,7 @@ import vision.SenseiFXMLController;
  */
 public class Main extends Application implements Observer{
     
-    private static Stage stage;
+    private Stage stage;
     
     // Tela de login
     private Scene loginScene;
@@ -33,91 +36,132 @@ public class Main extends Application implements Observer{
     private Scene pupiloScene;
     // Tela de sensei
     private Scene senseiScene;
-    // Bean que guarda o pupilo logado
-    private PupiloBean pup;
-    // Bean que guarda o sensei logado
-    private SenseiBean sen;
+    
+    // Tela de sensei
+    private Scene inicialScene;
+    
+    // Tela de sensei
+    private Scene cadastroScene;
+    
+    private LoginFXMLController loginControler;
+    
+    private CadastroFXMLController cadastroControler;
+   
+    ControleDeUsuarios controlador;
+    Autenticador aut;
     
     @Override
-    public void start(Stage stage2) throws Exception {
+    public void start(Stage stage) throws Exception {
         
         // Instancia os objetos
-        this.pup = new PupiloBean(new Pupilo());
-        this.sen = new SenseiBean(new Sensei());
+        this.controlador = new ControleDeUsuarios();
+        this.aut = new Autenticador();
         
-        stage = stage2;
+        this.stage = stage;
         
-        stage2.setTitle("Away Sensei");
+        this.stage.setTitle("Away Sensei");
+        
+        FXMLLoader fxmlInicial = new FXMLLoader(getClass().getResource("/vision/TelaInicialFXML.fxml"));
+        this.inicialScene = new Scene(fxmlInicial.load());
+        TelaInicialFXMLController inicialControler = (TelaInicialFXMLController)fxmlInicial.getController();
+        
+        FXMLLoader fxmlLogin = new FXMLLoader(getClass().getResource("/vision/LoginFXML.fxml"));
+        this.loginScene = new Scene(fxmlLogin.load());
+        this.loginControler = (LoginFXMLController)fxmlLogin.getController();
+        
+        FXMLLoader fxmlCadastro = new FXMLLoader(getClass().getResource("/vision/CadastroFXML.fxml"));
+        this.cadastroScene = new Scene(fxmlCadastro.load());
+        this.cadastroControler = (CadastroFXMLController)fxmlCadastro.getController();
         
         FXMLLoader fxmlPupilo = new FXMLLoader(getClass().getResource("/vision/PupiloFXML.fxml"));
-        pupiloScene = new Scene(fxmlPupilo.load());
+        this.pupiloScene = new Scene(fxmlPupilo.load());
         PupiloFXMLController pupiloControler = (PupiloFXMLController)fxmlPupilo.getController();
         
         FXMLLoader fxmlSensei = new FXMLLoader(getClass().getResource("/vision/SenseiFXML.fxml"));
-        senseiScene = new Scene(fxmlSensei.load());
+        this.senseiScene = new Scene(fxmlSensei.load());
         SenseiFXMLController senseiControler = (SenseiFXMLController)fxmlSensei.getController();
         
-        FXMLLoader fxmlLogin = new FXMLLoader(getClass().getResource("/vision/LoginFXML.fxml"));
-        loginScene = new Scene(fxmlLogin.load());
-        LoginFXMLController loginControler = (LoginFXMLController)fxmlLogin.getController();
-        
-        // A tela Pupilo observa a tela de login
-        loginControler.addObserver(pupiloControler);
-        // O pupilo observa LoginControler
-        loginControler.addObserver(this.pup);
-        // O sensei observa LoginControler
-        loginControler.addObserver(this.sen);
-        this.sen.addObserver(loginControler);
-        // Classe main observa a tela de login
-        loginControler.addObserver(this);
-        
-        
-        Sensei sen1 = new Sensei("sen1", "123");
-        Sensei sen2 = new Sensei("sen2", "123");
-        Sensei sen3 = new Sensei("sen3", "123");
-        Sensei sen4 = new Sensei("sen4", "123");
-        
-        loginControler.addSensei(sen1);
-        loginControler.addSensei(sen2);
-        loginControler.addSensei(sen3);
-        loginControler.addSensei(sen4);
-        
-        // A tela pupilo observa PupiloBean
-        pup.addObserver(pupiloControler);
-        pupiloControler.addObserver(pup);
-        // Classe main observa a tela pupilo
+        inicialControler.addObserver(this);
+        this.loginControler.addObserver(this);
+        this.cadastroControler.addObserver(this);
         pupiloControler.addObserver(this);
-        
-        // Classe main observa a tela pupilo
         senseiControler.addObserver(this);
-        // SenseiBean e a tela de sensei observam um ao outro
-        senseiControler.addObserver(this.sen);
-        this.sen.addObserver(senseiControler);
         
-        stage2.setScene(loginScene);
-        stage2.show();
+        this.controlador.addObserver(pupiloControler);
+        
+        this.controlador.addSensei(new Sensei("sen1", "123"));
+        this.controlador.addSensei(new Sensei("sen2", "123"));
+        this.controlador.addSensei(new Sensei("sen3", "123"));
+        this.controlador.addSensei(new Sensei("sen4", "123"));
+        
+        this.stage.setScene(inicialScene);
+        this.stage.show();
     }
     
     // Faz update quando algum objeto observado é modificado
     @Override
     public void update(Observable observable, Object arg) {
-        if (observable instanceof LoginFXMLController) {
+        if (observable instanceof TelaInicialFXMLController) {
             if (arg instanceof String) {
-                switch((String)arg){
-                    case "telaPupilo":
-                        stage.setScene(this.pupiloScene);
-                        break;
-                    case "telaSensei":
-                        stage.setScene(this.senseiScene);
+                if (arg == "login") {
+                    this.stage.setScene(this.loginScene);
+                } else if (arg == "cadastro") {
+                    this.stage.setScene(this.cadastroScene);
                 }
             }
-        } else if (observable instanceof SenseiFXMLController || observable instanceof PupiloFXMLController) {
-            if (arg instanceof String) {
-                if (arg == "telaLogin") {
-                    stage.setScene(this.loginScene);
+        } 
+        
+        else if (observable instanceof LoginFXMLController) {
+            if (arg instanceof Usuario) {
+                Usuario user = this.aut.autenticar(controlador, (Usuario) arg);
+                
+                if (user instanceof Sensei) {
+                    this.stage.setScene(senseiScene);
+                } else if (user instanceof Pupilo) {
+                    this.stage.setScene(pupiloScene);
+                }else {
+                    this.loginControler.aviso();
+                }
+            } else if (arg instanceof String) {
+                if(arg == "cancelar") {
+                    this.stage.setScene(inicialScene);
                 }
             }
         }
+        
+        else if (observable instanceof CadastroFXMLController) {
+            if (arg instanceof Usuario) {
+                Usuario user = this.aut.autenticar(controlador, (Usuario) arg);
+                
+                if (user instanceof Sensei || user instanceof Pupilo) {
+                    this.cadastroControler.aviso();
+                } else if (user == null) {
+                    this.controlador.addPupilo((Pupilo) arg);
+                    this.stage.setScene(inicialScene);
+                }
+            } else if (arg instanceof String) {
+                if(arg == "cancelar") {
+                    this.stage.setScene(inicialScene);
+                }
+            }
+        }
+        
+        else if (observable instanceof PupiloFXMLController) {
+            if (arg instanceof String) {
+                if (arg == "sair") {
+                    this.stage.setScene(loginScene);
+                }
+            }
+        }
+        
+        else if (observable instanceof SenseiFXMLController) {
+            if (arg instanceof String) {
+                if (arg == "sair") {
+                    this.stage.setScene(loginScene);
+                }
+            }
+        }
+        
     }
     
     /**

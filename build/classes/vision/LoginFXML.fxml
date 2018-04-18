@@ -13,13 +13,13 @@
          <center>
             <AnchorPane maxHeight="275.0" maxWidth="250.0" prefHeight="275.0" prefWidth="250.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
-                    <Button fx:id="button" layoutX="103.0" layoutY="175.0" onAction="#logar" text="Login" />
+                    <Button fx:id="button" layoutX="155.0" layoutY="175.0" onAction="#logar" text="Login" />
                   <TextField fx:id="nome" layoutX="52.0" layoutY="48.0" />
                   <PasswordField fx:id="senha" layoutX="51.0" layoutY="111.0" />
                   <Label layoutX="109.0" layoutY="89.0" text="Senha" />
-                  <Button layoutX="92.0" layoutY="223.0" mnemonicParsing="false" onAction="#cadastrar" text="Cadastrar" />
                   <Label layoutX="107.0" layoutY="23.0" text="Nome" />
                   <Label fx:id="senhaIncorreta" layoutX="83.0" layoutY="138.0" text="Senha incorreta!" textFill="#f80606" visible="false" />
+                  <Button layoutX="51.0" layoutY="175.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
                </children>
             </AnchorPane>
          </center>

@@ -39,7 +39,7 @@ public class SenseiFXMLController extends Observable implements Observer ,Initia
     @FXML
     private void sair(ActionEvent event) {
         super.setChanged();
-        super.notifyObservers("telaLogin");
+        super.notifyObservers("sair");
     }
     
     @FXML

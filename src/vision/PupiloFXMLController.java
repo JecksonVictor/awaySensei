@@ -28,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tools.ControleDeUsuarios;
 
 /**
  * FXML Controller class
@@ -39,7 +40,7 @@ public class PupiloFXMLController extends Observable implements Initializable, O
     @FXML
     private void sair(ActionEvent event) {
         super.setChanged();
-        super.notifyObservers("telaLogin");
+        super.notifyObservers("sair");
     }
     
     @FXML
@@ -52,7 +53,10 @@ public class PupiloFXMLController extends Observable implements Initializable, O
     ImageView foto;
     
     private Scene mudaScene;
+    private EscolherSenseiFXMLController mudaControler;
+    
     private ArrayList<Sensei> senseis;
+    
     
     // Abre o modal com a tela de seleção de de senseis
     @FXML
@@ -98,48 +102,25 @@ public class PupiloFXMLController extends Observable implements Initializable, O
             Logger.getLogger(PupiloFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Controler da tela de seleção de senseis
-        EscolherSenseiFXMLController mudaControler = (EscolherSenseiFXMLController)fxmlMuda.getController();
+        this.mudaControler = (EscolherSenseiFXMLController)fxmlMuda.getController();
         
         // Tela de seleção de senseis observa a tela de pupilo e a
         // tela de pupilo observa a tela de seleção de senseis
-        this.addObserver(mudaControler);
-        mudaControler.addObserver(this);
+        this.mudaControler.addObserver(this);
     }
 
     @Override
-    public void update(Observable theObservable, Object arg) {
-        
-        // Se a modoficação foi em pupiloBean
-        if (theObservable instanceof PupiloBean) {
-            // Se a mudou o nome do sensei
-            if(arg instanceof String) {
-                this.senseiNome.setText((String) arg);
-            }
-            // Se mudou a imagem
-            else if (arg instanceof Image) {
-                this.foto.setImage((Image) arg);
-            } 
-            // Se mudou a faixa
-            else if (arg instanceof Faixa) {
-                this.faixa.setText(((Faixa)arg).getFaixa());
-            }
-        } 
-        // Se a modoficação foi na tela de login
-        else if (theObservable instanceof LoginFXMLController) {      
-            // Se algum sensei foi adicionado
+    public void update(Observable observable, Object arg) {
+        if (observable instanceof ControleDeUsuarios) {
             if (arg instanceof Sensei) {
                 this.senseis.add((Sensei) arg);
-                super.setChanged();
-                super.notifyObservers(((Sensei) arg));
+                this.mudaControler.addSensei((Sensei) arg);
             }
-        } 
-        // Se a modoficação foi em escolherSensei
-        else if (theObservable instanceof EscolherSenseiFXMLController) {
-            // Se o pupilo mudou de sensei
+        }
+        
+        else if (observable instanceof EscolherSenseiFXMLController) {
             if (arg instanceof Sensei) {
                 this.senseiNome.setText(((Sensei) arg).getNomeDeUsuario());
-                super.setChanged();
-                super.notifyObservers(((Sensei) arg).getNomeDeUsuario());
             }
         }
     }

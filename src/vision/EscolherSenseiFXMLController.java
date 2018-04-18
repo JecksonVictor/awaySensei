@@ -24,13 +24,13 @@ import tools.ControleDeUsuarios;
  *
  * @author José Carlos Emídio Pereira
  */
-public class EscolherSenseiFXMLController extends Observable implements Observer, Initializable {
+public class EscolherSenseiFXMLController extends Observable implements Initializable {
     
     @FXML
     private ListView listaSenseis;
     
     // Lista de senseis
-    private ArrayList<Sensei> listaSensei;
+    private ArrayList<Sensei> Senseis;
     
     // ButtonActionListener
     @FXML
@@ -38,7 +38,7 @@ public class EscolherSenseiFXMLController extends Observable implements Observer
         
         // Caso um sensei tenha sido selecionado o objeto puíloLogado é notificado
         super.setChanged();
-        super.notifyObservers(this.listaSensei.get(listaSenseis.getSelectionModel().getSelectedIndex()));
+        super.notifyObservers(this.Senseis.get(listaSenseis.getSelectionModel().getSelectedIndex()));
         
         ((Button)event.getTarget()).getScene().getWindow().hide();
     }
@@ -56,18 +56,12 @@ public class EscolherSenseiFXMLController extends Observable implements Observer
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        this.listaSensei = new ArrayList<Sensei>();
+        this.Senseis = new ArrayList<Sensei>();
     }    
 
-    // Metodo update da classe Observer 
-    @Override
-    public void update(Observable theObservable, Object arg) {
-        if (theObservable instanceof PupiloFXMLController) {
-            if (arg instanceof Sensei) {
-                this.listaSensei.add((Sensei) arg);
-                this.updateList(((Sensei) arg).getNomeDeUsuario());
-            }
-        }
+    public void addSensei(Sensei sen) {
+        this.Senseis.add(sen);
+        this.updateList(sen.getNomeDeUsuario());
     }
     
     // Atualiza a lista de senseis
