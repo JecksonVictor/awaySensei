@@ -5,6 +5,7 @@
  */
 package vision;
 
+import core.ErroNoCadastroException;
 import core.Pupilo;
 import core.Usuario;
 import java.net.URL;
@@ -32,13 +33,21 @@ public class CadastroFXMLController extends Observable implements Initializable 
     private Label aviso;
     
     @FXML
-    private void cadastrar(ActionEvent event) {
+    private void cadastrar(ActionEvent event) throws ErroNoCadastroException{
+    	
+    	if(this.nome.getText().length() >= 4 && this.senha.getText().length() >= 4) {
+    	
         Pupilo pup = new Pupilo(this.nome.getText(), this.senha.getText());
         super.setChanged();
         super.notifyObservers(pup);
         
         this.nome.clear();
         this.senha.clear();
+        
+    	}
+    	else {
+    		throw new ErroNoCadastroException();
+    	}
     }
     
     @FXML
