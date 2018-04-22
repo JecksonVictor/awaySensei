@@ -1,0 +1,121 @@
+#Home {
+    -fx-background-color: black;
+    -fx-background-image: url("Images/HomeBackground.png");
+    -fx-background-size: 100% 100%;
+}
+
+@font-face {
+    font-family: 'Permanent Marker';
+    src: url('PermanentMarker.ttf');
+}
+
+/****************************** BUTTON ******************************/
+
+.button {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-padding: 10px 15px;
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-text-align: center;
+    -fx-font-size: 20px;
+
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+}
+
+.button:hover {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+/****************************** BUTTON ******************************/
+
+.text-field{
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+
+    -fx-font-size: 20px;
+}
+
+.jfx-text-field , .jfx-text-area{
+    -jfx-focus-color: black;
+
+    -fx-font-size: 20px;
+
+    -fx-min-width: 200px;
+}
+
+.textLink {
+    -fx-text-fill: blue;
+    -fx-font-family: 'Permanen Marker';
+}
+
+/****************************** TABPANE ******************************/
+
+.jfx-tab-pane {
+    -fx-background-color: white;
+    -fx-pref-width: 1200px;
+    -fx-pref-height: 600px;
+    -fx-stroke: red;
+}
+
+.tab-selected-line {
+    -fx-background-color: black;
+    -fx-stroke: red;
+}
+
+.tab {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-background-color: white;
+    -jfx-border-left-color: black;
+}
+
+.tab:hover{
+    -fx-background-color: rgb(247,247,247);
+    
+}
+
+.tab-label {
+    -fx-text-fill: black;
+}
+
+.tab-header-background {
+    -fx-background-color: white;
+}
+
+
+/****************************** TABPANE ******************************/
+
+#chatBox {
+    -fx-background-color: black;
+}
+#chatImput {
+    -fx-background-color: white;
+    -fx-focus-color: black;
+}
+#chatMessages {
+    -fx-background-color: white;
+    -fx-border-color: black;
+}
+#chatTitle {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-pref-height: 50px;
+}
+#chatName{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.stackpane {   
+    -f-background-color: black;
+}
+
+#faixa {
+    -fx-background-color: red;
+    -fx-pref-width: 300px;
+    -fx-pref-height: 25px;
+}
+#solicitarProf {
+    -fx-pref-width: 300px;
+}

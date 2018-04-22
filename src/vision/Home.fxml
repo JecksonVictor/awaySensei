@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane id="Home" prefHeight="720.0" prefWidth="1024.0" stylesheets="@screen.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="buttonEntrar" mnemonicParsing="false" prefHeight="52.0" prefWidth="200.0" stylesheets="@screen.css" text="Entrar">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button id="buttonCadastrar" mnemonicParsing="false" prefHeight="52.0" prefWidth="200.0" stylesheets="@screen.css" text="Cadastrar">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </bottom>
+   <top>
+      <ImageView fitHeight="150.0" fitWidth="600.0" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@Images/inv_awaySensei.png" />
+         </image>
+      </ImageView>
+   </top>
+</BorderPane>
