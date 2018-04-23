@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="720.0" prefWidth="1024.0" stylesheets="@screen.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vision.LoginController">
+   <center>
+      <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXTextField fx:id="textUsername" promptText="Usuario">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXPasswordField fx:id="textPassword" promptText="Senha">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </JFXPasswordField>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" styleClass="textLink" stylesheets="@screen.css" text="Esqueci minha senha" textAlignment="RIGHT" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="150.0" />
+         </padding>
+      </VBox>
+   </center>
+   <top>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="600.0" preserveRatio="true">
+               <image>
+                  <Image url="@Images/awaySensei.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="8.0" fitWidth="800.0">
+               <image>
+                  <Image url="@Images/underbar.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <left>
+            <JFXButton visible="false" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="110.0" />
+               </BorderPane.margin>
+            </JFXButton>
+         </left>
+         <center>
+            <JFXButton fx:id="buttonLogin" onAction="#login" text="Entrar" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <JFXButton fx:id="buttonCancelar" onAction="#cancelar" text="Cancelar" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="110.0" />
+               </BorderPane.margin>
+            </JFXButton>
+         </right>
+      </BorderPane>
+   </bottom>
+</BorderPane>

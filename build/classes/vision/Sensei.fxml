@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@screen.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab closable="false" text="Perfil">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets bottom="10.0" right="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField alignment="BOTTOM_LEFT" promptText="Nome de Usuario" />
+                              <JFXTextField alignment="BOTTOM_LEFT" promptText="Nome Completo" />
+                              <JFXTextField alignment="BOTTOM_LEFT" promptText="Email" />
+                              <JFXTextArea promptText="Descriçao">
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </JFXTextArea>
+                           </children>
+                        </VBox>
+                        <JFXButton text="Editar">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Mensagens">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: gray;">
+               <children>
+                  <VBox alignment="CENTER" prefWidth="200.0">
+                     <children>
+                        <JFXTreeTableView VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox id="chatBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <AnchorPane id="chatTitle" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label id="chatName" alignment="CENTER" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane id="chatMessages" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <JFXListView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
+                        <JFXTextField id="chatImput">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></JFXTextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Treinos">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXTreeTableView HBox.hgrow="ALWAYS" />
+                  <VBox prefHeight="200.0" prefWidth="250.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <JFXButton text="Novo Treino" />
+                              <JFXButton text="Editar">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <JFXButton text="Enviar Para...">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton text="Deletar">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="200.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Pupilos">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXTreeTableView HBox.hgrow="ALWAYS" />
+                  <VBox prefHeight="200.0" prefWidth="250.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <JFXButton text="Convidar" />
+                              <JFXButton text="Desvincular">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Opçoes">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </AnchorPane>
+        </content>
+      </Tab>
+   </tabs>
+</JFXTabPane>

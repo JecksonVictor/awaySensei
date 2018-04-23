@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@screen.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vision.PupiloController">
+   <tabs>
+      <Tab closable="false" text="Perfil">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fx:id="photoEdit" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets bottom="10.0" right="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField fx:id="textUserName" alignment="BOTTOM_LEFT" promptText="Nome de Usuario" />
+                              <JFXTextField fx:id="textFullName" alignment="BOTTOM_LEFT" promptText="Nome Completo" />
+                              <JFXTextField fx:id="textUserMail" alignment="BOTTOM_LEFT" promptText="Email" />
+                              <JFXTextArea fx:id="textUserDescription" promptText="Descriçao">
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </JFXTextArea>
+                           </children>
+                        </VBox>
+                        <JFXToggleButton id="editProfile" fx:id="toggleEditProfile" onAction="#editProfile" text="Editar Perfil">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                        </JFXToggleButton>
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Mensagens">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: gray;">
+               <children>
+                  <VBox alignment="CENTER" prefWidth="200.0">
+                     <children>
+                        <JFXTreeTableView VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox id="chatBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <AnchorPane id="chatTitle" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label id="chatName" alignment="CENTER" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane id="chatMessages" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <JFXListView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
+                        <JFXTextField id="chatImput">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></JFXTextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Treinos">
+         <content>
+            <JFXListView />
+         </content>
+      </Tab>
+      <Tab text="Progresso">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" opacity="0.51" prefHeight="550.0" prefWidth="453.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0">
+                           <children>
+                              <Label text="Faixa Atual">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton id="faixa" text=" " />
+                           </children>
+                        </VBox>
+                        <JFXButton id="solicitarProf" alignment="CENTER" text="Soliticar Proficiencia" />
+                     </children></VBox>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXTreeTableView prefHeight="550.0" prefWidth="615.0" />
+                     </children></StackPane>
+               </children>
+            </HBox>
+         </content>
+      </Tab>
+      <Tab text="Sensei">
+         <content>
+            <JFXButton text="Reportar" />
+         </content>
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets bottom="10.0" right="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField fx:id="textSensei" alignment="BOTTOM_LEFT" promptText="Nome de Usuario" />
+                              <JFXTextField alignment="BOTTOM_LEFT" promptText="Nome Completo" />
+                              <JFXTextField alignment="BOTTOM_LEFT" promptText="Email" />
+                              <JFXTextArea promptText="Descriçao">
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </JFXTextArea>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="270.0">
+                           <children>
+                              <JFXButton text="Reportar">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="buttonChangeSensei" onAction="#changeSensei" prefHeight="62.0" prefWidth="230.0" text="Mudar Sensei" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+   </tabs>
+</JFXTabPane>
