@@ -18,6 +18,7 @@ import tools.Autenticador;
 import tools.ControleDeUsuarios;
 import vision.HomeController;
 import vision.LoginController;
+import vision.PupiloController;
 import vision.PupiloFXMLController;
 import vision.SenseiFXMLController;
 import vision.SignupController;
@@ -71,9 +72,9 @@ public class Main extends Application implements Observer{
         this.cadastroScene = new Scene(fxmlCadastro.load());
         this.cadastroController = (SignupController)fxmlCadastro.getController();
         
-        FXMLLoader fxmlPupilo = new FXMLLoader(getClass().getResource("/vision/PupiloFXML.fxml"));
+        FXMLLoader fxmlPupilo = new FXMLLoader(getClass().getResource("/vision/Pupilo.fxml"));
         this.pupiloScene = new Scene(fxmlPupilo.load());
-        PupiloFXMLController pupiloController = (PupiloFXMLController)fxmlPupilo.getController();
+        PupiloController pupiloController = (PupiloController)fxmlPupilo.getController();
         
         FXMLLoader fxmlSensei = new FXMLLoader(getClass().getResource("/vision/SenseiFXML.fxml"));
         this.senseiScene = new Scene(fxmlSensei.load());
