@@ -26,9 +26,9 @@ public class LoginController extends Observable implements Initializable {
     @FXML
     private Button buttonLogin;
     @FXML
-    private TextField username;
+    private TextField textUsername;
     @FXML
-    private PasswordField password;
+    private PasswordField textPassword;
 
     /**
      * Initializes the controller class.
@@ -40,18 +40,18 @@ public class LoginController extends Observable implements Initializable {
     
     @FXML
     private void login(ActionEvent event) {
-        Usuario user = new Usuario(this.username.getText(), this.password.getText());
+        Usuario user = new Usuario(this.textUsername.getText(), this.textPassword.getText());
         super.setChanged();
         super.notifyObservers(user);
 
-        this.username.clear();
-        this.password.clear();
+        this.textUsername.clear();
+        this.textPassword.clear();
     }
     
     @FXML
     private void cancelar(ActionEvent event) {
-        this.username.clear();
-        this.password.clear();
+        this.textUsername.clear();
+        this.textPassword.clear();
         
         super.setChanged();
         super.notifyObservers("cancelar");

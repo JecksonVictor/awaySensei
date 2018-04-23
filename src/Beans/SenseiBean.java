@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.image.Image;
-import vision.LoginFXMLController;
+import vision.LoginController;
 import vision.SenseiFXMLController;
 
 /**
@@ -57,7 +57,7 @@ public class SenseiBean extends Observable implements Observer{
         
         // O sensei acaba de se logar, é preciso atualizar as informações
         // na tela
-        else if (theObservable instanceof LoginFXMLController) {
+        else if (theObservable instanceof LoginController) {
             if (arg instanceof Sensei) {
                 this.sen = (Sensei) arg;
                 

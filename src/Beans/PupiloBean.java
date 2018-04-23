@@ -9,7 +9,7 @@ import core.Pupilo;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.image.Image;
-import vision.LoginFXMLController;
+import vision.LoginController;
 import vision.PupiloFXMLController;
 
 /**
@@ -36,7 +36,7 @@ public class PupiloBean extends Observable implements Observer{
         
         // O pupilo acaba de se logar, daí suas informações 
         // precisam ser atualizadas na tela
-        if (theObservable instanceof LoginFXMLController) {
+        if (theObservable instanceof LoginController) {
             if (arg instanceof Pupilo) {
                 this.pup = ((Pupilo) arg);
                 this.mudaSensei();

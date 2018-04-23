@@ -16,11 +16,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tools.Autenticador;
 import tools.ControleDeUsuarios;
-import vision.CadastroFXMLController;
-import vision.LoginFXMLController;
+import vision.HomeController;
+import vision.LoginController;
 import vision.PupiloFXMLController;
 import vision.SenseiFXMLController;
-import vision.TelaInicialFXMLController;
+import vision.SignupController;
 
 /**
  *
@@ -35,17 +35,15 @@ public class Main extends Application implements Observer{
     // Tela de pupilo
     private Scene pupiloScene;
     // Tela de sensei
-    private Scene senseiScene;
-    
+    private Scene senseiScene;    
     // Tela de sensei
-    private Scene inicialScene;
-    
+    private Scene inicialScene;    
     // Tela de sensei
     private Scene cadastroScene;
     
-    private LoginFXMLController loginControler;
+    private LoginController loginController;
     
-    private CadastroFXMLController cadastroControler;
+    private SignupController cadastroController;
    
     ControleDeUsuarios controlador;
     Autenticador aut;
@@ -59,35 +57,35 @@ public class Main extends Application implements Observer{
         
         this.stage = stage;
         
-        this.stage.setTitle("Away Sensei");
+        this.stage.setTitle("AwaySensei");
         
-        FXMLLoader fxmlInicial = new FXMLLoader(getClass().getResource("/vision/TelaInicialFXML.fxml"));
+        FXMLLoader fxmlInicial = new FXMLLoader(getClass().getResource("/vision/Home.fxml"));
         this.inicialScene = new Scene(fxmlInicial.load());
-        TelaInicialFXMLController inicialControler = (TelaInicialFXMLController)fxmlInicial.getController();
+        HomeController inicialController = (HomeController)fxmlInicial.getController();
         
-        FXMLLoader fxmlLogin = new FXMLLoader(getClass().getResource("/vision/LoginFXML.fxml"));
+        FXMLLoader fxmlLogin = new FXMLLoader(getClass().getResource("/vision/Login.fxml"));
         this.loginScene = new Scene(fxmlLogin.load());
-        this.loginControler = (LoginFXMLController)fxmlLogin.getController();
+        this.loginController = (LoginController)fxmlLogin.getController();
         
-        FXMLLoader fxmlCadastro = new FXMLLoader(getClass().getResource("/vision/CadastroFXML.fxml"));
+        FXMLLoader fxmlCadastro = new FXMLLoader(getClass().getResource("/vision/Signup.fxml"));
         this.cadastroScene = new Scene(fxmlCadastro.load());
-        this.cadastroControler = (CadastroFXMLController)fxmlCadastro.getController();
+        this.cadastroController = (SignupController)fxmlCadastro.getController();
         
         FXMLLoader fxmlPupilo = new FXMLLoader(getClass().getResource("/vision/PupiloFXML.fxml"));
         this.pupiloScene = new Scene(fxmlPupilo.load());
-        PupiloFXMLController pupiloControler = (PupiloFXMLController)fxmlPupilo.getController();
+        PupiloFXMLController pupiloController = (PupiloFXMLController)fxmlPupilo.getController();
         
         FXMLLoader fxmlSensei = new FXMLLoader(getClass().getResource("/vision/SenseiFXML.fxml"));
         this.senseiScene = new Scene(fxmlSensei.load());
-        SenseiFXMLController senseiControler = (SenseiFXMLController)fxmlSensei.getController();
+        SenseiFXMLController senseiController = (SenseiFXMLController)fxmlSensei.getController();
         
-        inicialControler.addObserver(this);
-        this.loginControler.addObserver(this);
-        this.cadastroControler.addObserver(this);
-        pupiloControler.addObserver(this);
-        senseiControler.addObserver(this);
+        inicialController.addObserver(this);
+        this.loginController.addObserver(this);
+        this.cadastroController.addObserver(this);
+        pupiloController.addObserver(this);
+        senseiController.addObserver(this);
         
-        this.controlador.addObserver(pupiloControler);
+        this.controlador.addObserver(pupiloController);
         
         this.controlador.addSensei(new Sensei("sen1", "123"));
         this.controlador.addSensei(new Sensei("sen2", "123"));
@@ -101,7 +99,7 @@ public class Main extends Application implements Observer{
     // Faz update quando algum objeto observado é modificado
     @Override
     public void update(Observable observable, Object arg) {
-        if (observable instanceof TelaInicialFXMLController) {
+        if (observable instanceof HomeController) {
             if (arg instanceof String) {
                 if (arg == "login") {
                     this.stage.setScene(this.loginScene);
@@ -111,7 +109,7 @@ public class Main extends Application implements Observer{
             }
         } 
         
-        else if (observable instanceof LoginFXMLController) {
+        else if (observable instanceof LoginController) {
             if (arg instanceof Usuario) {
                 Usuario user = this.aut.autenticar(controlador, (Usuario) arg);
                 
@@ -120,7 +118,7 @@ public class Main extends Application implements Observer{
                 } else if (user instanceof Pupilo) {
                     this.stage.setScene(pupiloScene);
                 }else {
-                    this.loginControler.aviso();
+                    //this.loginController.aviso();
                 }
             } else if (arg instanceof String) {
                 if(arg == "cancelar") {
@@ -129,12 +127,12 @@ public class Main extends Application implements Observer{
             }
         }
         
-        else if (observable instanceof CadastroFXMLController) {
+        else if (observable instanceof SignupController) {
             if (arg instanceof Usuario) {
                 Usuario user = this.aut.autenticar(controlador, (Usuario) arg);
                 
                 if (user instanceof Sensei || user instanceof Pupilo) {
-                    this.cadastroControler.aviso();
+                    //this.SignupController.aviso();
                 } else if (user == null) {
                     this.controlador.addPupilo((Pupilo) arg);
                     this.stage.setScene(inicialScene);

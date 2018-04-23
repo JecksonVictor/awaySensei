@@ -6,11 +6,10 @@
 package tools;
 
 import core.Pupilo;
-import core.Sensei;
 import java.util.Observable;
 import java.util.Observer;
 import vision.EscolherSenseiFXMLController;
-import vision.LoginFXMLController;
+import vision.LoginController;
 
 /**
  *
@@ -29,7 +28,7 @@ public class PupiloBean extends Observable implements Observer{
             this.pup.setSenseiName((String) arg);
             
             this.mudaSensei();
-        } else if (theObservable instanceof LoginFXMLController) {
+        } else if (theObservable instanceof LoginController) {
             this.pup = ((Pupilo) arg);
         }
     }
