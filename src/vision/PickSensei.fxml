@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="404.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vision.PickSenseiController">
+   <children>
+      <Label styleClass="titleMenu" text="Escolha seu Sensei!" />
+      <JFXListView fx:id="listaSenseis" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="10.0" top="5.0" />
+         </VBox.margin>
+      </JFXListView>
+      <BorderPane id="videoButtons" prefHeight="53.0" prefWidth="400.0">
+         <left>
+            <JFXButton fx:id="buttonCancelar" cancelButton="true" onAction="#cancelar" styleClass="smallButton" text="Cancelar" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <JFXButton fx:id="buttonPickSensei" onAction="#pickSensei" styleClass="smallButton" text="Escolher" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@../Documents/ProjetoPDS/View/screen.css" />
+      <URL value="@screen.css" />
+   </stylesheets>
+</VBox>

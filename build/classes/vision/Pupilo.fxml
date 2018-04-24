@@ -26,9 +26,9 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fx:id="photoEdit" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="photoEdit" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#editPhoto" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
-                              <Insets bottom="10.0" right="20.0" />
+                              <Insets bottom="10.0" left="2.0" right="20.0" top="4.0" />
                            </HBox.margin>
                         </ImageView>
                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -45,10 +45,13 @@
                         </VBox>
                         <VBox prefHeight="550.0" prefWidth="215.0">
                            <children>
-                              <JFXToggleButton id="editProfile" fx:id="toggleEditProfile" onAction="#editProfile" text="Editar Perfil" />
+                              <JFXToggleButton id="editProfile" fx:id="toggleEditProfile" onAction="#editProfile" text="Editar Perfil">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin></JFXToggleButton>
                               <JFXButton fx:id="buttonChangeSensei1" onAction="#sair" prefHeight="62.0" prefWidth="230.0" text="Sair">
                                  <VBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets top="15.0" />
                                  </VBox.margin>
                               </JFXButton>
                            </children>
@@ -109,7 +112,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <JFXButton id="faixa" text=" " />
+                              <JFXButton id="faixa" fx:id="buttonFaixa" text=" " />
                            </children>
                         </VBox>
                         <JFXButton id="solicitarProf" alignment="CENTER" text="Soliticar Proficiencia" />

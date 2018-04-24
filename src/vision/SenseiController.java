@@ -58,11 +58,11 @@ public class SenseiController extends Observable implements Initializable, Obser
     ObservableList<String> treinosListView;
     
     private Scene addScene;
-    private AdicionaTreinoFXMLController addControler;
+    private AddVideoController addControler;
 
     @Override
     public void update(Observable observable, Object arg) {
-        if (observable instanceof AdicionaTreinoFXMLController) {
+        if (observable instanceof AddVideoController) {
             if (arg instanceof Treino) {
                 this.treinosList.add(((Treino) arg).getDescricao());
                 this.treinos.getItems().clear();
@@ -205,14 +205,14 @@ public class SenseiController extends Observable implements Initializable, Obser
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Carrega o layout da tela de seleção de senseis
-        FXMLLoader fxmlMuda = new FXMLLoader(getClass().getResource("AdicionaTreinoFXML.fxml"));
+        FXMLLoader fxmlMuda = new FXMLLoader(getClass().getResource("AddVideo.fxml"));
         try {
             addScene = new Scene(fxmlMuda.load());
         } catch (IOException ex) {
             Logger.getLogger(SenseiController.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Controler da tela de seleção de senseis
-        this.addControler = (AdicionaTreinoFXMLController)fxmlMuda.getController();
+        this.addControler = (AddVideoController)fxmlMuda.getController();
         
         // Tela de seleção de senseis observa a tela de pupilo e a
         // tela de pupilo observa a tela de seleção de senseis

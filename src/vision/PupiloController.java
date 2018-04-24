@@ -59,13 +59,16 @@ public class PupiloController extends Observable implements Initializable, Obser
     public Label senseiNome; 
     
     @FXML
+    public JFXButton buttonFaixa;
+    
+    @FXML
     private JFXButton buttonChangeSensei;
     @FXML
     private JFXTextField textSenseiNome;
 
     
     private Scene mudaScene;
-    private EscolherSenseiFXMLController mudaControler;
+    private PickSenseiController mudaControler;
     private ArrayList<Sensei> senseis;
     
     // Abre o modal com a tela de seleção de de senseis
@@ -97,10 +100,8 @@ public class PupiloController extends Observable implements Initializable, Obser
     }
     
     public void update (Usuario user) {
-        this.photoEdit.setImage(user.getImg());
-        
-        this.senseiNome.setText(((Pupilo)user).getSenseiName());
-        
+        this.photoEdit.setImage(user.getImg());        
+        this.senseiNome.setText(((Pupilo)user).getSenseiName());        
     }
     
     @FXML
@@ -120,18 +121,29 @@ public class PupiloController extends Observable implements Initializable, Obser
         this.senseis = new ArrayList<>();
         
         // Carrega o layout da tela de seleção de senseis
-        FXMLLoader fxmlMuda = new FXMLLoader(getClass().getResource("EscolherSenseiFXML.fxml"));
+        FXMLLoader fxmlMuda = new FXMLLoader(getClass().getResource("PickSensei.fxml"));
         try {
             mudaScene = new Scene(fxmlMuda.load());
         } catch (IOException ex) {
             Logger.getLogger(PupiloController.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Controler da tela de seleção de senseis
-        this.mudaControler = (EscolherSenseiFXMLController)fxmlMuda.getController();
+        this.mudaControler = (PickSenseiController)fxmlMuda.getController();
         
         // Tela de seleção de senseis observa a tela de pupilo e a
         // tela de pupilo observa a tela de seleção de senseis
         this.mudaControler.addObserver(this);
+        
+        // Disable
+        photoEdit.setDisable(true);
+        textUserName.setDisable(true);
+        textFullName.setDisable(true);
+        textUserMail.setDisable(true);
+        textUserDescription.setDisable(true);
+        
+        //set faixa color
+        //buttonFaixa.setStyle("-fx-background-color: " + pupilo.getFaixa());
+        buttonFaixa.setStyle("-fx-background-color: " + "white" + ";");
     }
     
     @Override
@@ -143,7 +155,7 @@ public class PupiloController extends Observable implements Initializable, Obser
             }
         }
         
-        else if (observable instanceof EscolherSenseiFXMLController) {
+        else if (observable instanceof PickSenseiController) {
             if (arg instanceof Sensei) {
                 this.senseiNome.setText(((Sensei) arg).getNomeDeUsuario());
                 
@@ -159,17 +171,10 @@ public class PupiloController extends Observable implements Initializable, Obser
         if (toggleEditProfile.isSelected() == true){
             status = false;
         }
+        photoEdit.setDisable(status);
         textUserName.setDisable(status);
         textFullName.setDisable(status);
         textUserMail.setDisable(status);
         textUserDescription.setDisable(status);        
     }
-    
-    /* Não usado no momento
-    @FXML
-    private void sair(ActionEvent event) {
-        super.setChanged();
-        super.notifyObservers("sair");
-    }
-    */
 }

@@ -96,6 +96,7 @@ public class Main extends Application implements Observer{
         this.controlador.addSensei(new Sensei("sen2", "123"));
         this.controlador.addSensei(new Sensei("sen3", "123"));
         this.controlador.addSensei(new Sensei("sen4", "123"));
+        this.controlador.addPupilo(new Pupilo("pup1", "123"));
         
         this.stage.setScene(inicialScene);
         this.stage.show();
@@ -180,7 +181,6 @@ public class Main extends Application implements Observer{
                 this.controlador.updateUser(user);
             }
         }
-        
     }
     
     /**

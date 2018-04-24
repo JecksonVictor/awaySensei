@@ -5,41 +5,34 @@
  */
 package vision;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import core.Treino;
 import core.Video;
-import java.io.File;
 import java.net.URL;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
  *
- * @author JC
+ * @author jeckson
  */
-public class AdicionaTreinoFXMLController extends Observable implements Observer ,Initializable {
+public class AddVideoController extends Observable implements Initializable {
 
     @FXML
-    TextField linkVideo;
+    private JFXTextField textVideo;
     @FXML
-    TextArea descricaoVideo;
-    
+    private JFXTextArea textAreaVideoDescription;
     @FXML
-    private void adicionarVideo () {
-       super.setChanged();
-       super.notifyObservers(new Treino(new Video(linkVideo.getText()), descricaoVideo.getText()));
-       
-       linkVideo.clear();
-       descricaoVideo.clear();
-    }
-    
+    private JFXButton buttonClose;
+    @FXML
+    private JFXButton buttonAddVideo;
+
     /**
      * Initializes the controller class.
      */
@@ -48,9 +41,20 @@ public class AdicionaTreinoFXMLController extends Observable implements Observer
         // TODO
     }    
 
-    @Override
+    @FXML
+    private void close(ActionEvent event) {
+    }
+
+    @FXML
+    private void addVideo(ActionEvent event) {
+       super.setChanged();
+       super.notifyObservers(new Treino(new Video(textVideo.getText()), textAreaVideoDescription.getText()));
+       
+       textVideo.clear();
+       textAreaVideoDescription.clear();
+    }
+    
     public void update(Observable o, Object arg) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
