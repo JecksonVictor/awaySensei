@@ -1,16 +1,14 @@
+/****************************** HOME ******************************/
 #Home {
     -fx-background-color: black;
     -fx-background-image: url("Images/HomeBackground.png");
     -fx-background-size: 100% 100%;
 }
+/****************************** HOME ******************************/
 
-@font-face {
-    font-family: 'Permanent Marker';
-    src: url('PermanentMarker.ttf');
-}
+
 
 /****************************** BUTTON ******************************/
-
 .button {
     -fx-background-color: rgb(255, 255, 255);
     -fx-padding: 10px 15px;
@@ -26,7 +24,6 @@
     -fx-background-color: black;
     -fx-text-fill: white;
 }
-
 /****************************** BUTTON ******************************/
 
 .text-field{
@@ -50,40 +47,32 @@
 }
 
 /****************************** TABPANE ******************************/
-
 .jfx-tab-pane {
     -fx-background-color: white;
     -fx-pref-width: 1200px;
     -fx-pref-height: 600px;
     -fx-stroke: red;
 }
-
 .tab-selected-line {
     -fx-background-color: black;
     -fx-stroke: red;
 }
-
 .tab {
     -fx-pref-width: 200px;
     -fx-pref-height: 50px;
     -fx-background-color: white;
     -jfx-border-left-color: black;
 }
-
 .tab:hover{
     -fx-background-color: rgb(247,247,247);
     
 }
-
 .tab-label {
     -fx-text-fill: black;
 }
-
 .tab-header-background {
     -fx-background-color: white;
 }
-
-
 /****************************** TABPANE ******************************/
 
 #chatBox {

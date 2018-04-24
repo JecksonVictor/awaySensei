@@ -48,4 +48,9 @@ public class UsersFileDao implements UsersDao{
             System.out.println(e.toString());
         }
     }
+
+    @Override
+    public void updateUser(Usuario user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

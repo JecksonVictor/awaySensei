@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 public class ControleDeUsuarios extends Observable{
     private final UsersDao users;
     private final Autenticador aut;
-    private static Usuario usuarioLogado;
+    private Usuario usuarioLogado;
     
     
     public ControleDeUsuarios() {
@@ -51,6 +51,18 @@ public class ControleDeUsuarios extends Observable{
             super.setChanged();
             super.notifyObservers(sen_);
         }
+    }
+    
+    public void updateUser (Usuario user) {
+        this.users.updateUser(user);
+    }
+
+    public Usuario getUsuarioLogado() {
+        return this.usuarioLogado;
+    }
+
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
     }
 
     public ArrayList<Usuario> getListaDeUsuarios() {

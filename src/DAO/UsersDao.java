@@ -15,5 +15,7 @@ import java.util.ArrayList;
 public interface UsersDao {
     public void addUser(Usuario user);
     
+    public void updateUser(Usuario user);
+    
     public ArrayList<Usuario> getUsers();
 }

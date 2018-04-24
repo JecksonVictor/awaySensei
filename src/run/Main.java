@@ -13,14 +13,14 @@ import java.util.Observer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import tools.Autenticador;
 import tools.ControleDeUsuarios;
 import vision.HomeController;
 import vision.LoginController;
 import vision.PupiloController;
-import vision.PupiloFXMLController;
-import vision.SenseiFXMLController;
+import vision.SenseiController;
 import vision.SignupController;
 
 /**
@@ -45,6 +45,10 @@ public class Main extends Application implements Observer{
     private LoginController loginController;
     
     private SignupController cadastroController;
+    
+    PupiloController pupiloController;
+    
+    SenseiController senseiController;
    
     ControleDeUsuarios controlador;
     Autenticador aut;
@@ -74,11 +78,11 @@ public class Main extends Application implements Observer{
         
         FXMLLoader fxmlPupilo = new FXMLLoader(getClass().getResource("/vision/Pupilo.fxml"));
         this.pupiloScene = new Scene(fxmlPupilo.load());
-        PupiloController pupiloController = (PupiloController)fxmlPupilo.getController();
+        this.pupiloController = (PupiloController)fxmlPupilo.getController();
         
-        FXMLLoader fxmlSensei = new FXMLLoader(getClass().getResource("/vision/SenseiFXML.fxml"));
-        this.senseiScene = new Scene(fxmlSensei.load());
-        SenseiFXMLController senseiController = (SenseiFXMLController)fxmlSensei.getController();
+        FXMLLoader sensei = new FXMLLoader(getClass().getResource("/vision/Sensei.fxml"));
+        this.senseiScene = new Scene(sensei.load());
+        this.senseiController = (SenseiController)sensei.getController();
         
         inicialController.addObserver(this);
         this.loginController.addObserver(this);
@@ -115,9 +119,13 @@ public class Main extends Application implements Observer{
                 Usuario user = this.aut.autenticar(controlador, (Usuario) arg);
                 
                 if (user instanceof Sensei) {
+                    this.senseiController.update(user);
                     this.stage.setScene(senseiScene);
+                    this.controlador.setUsuarioLogado(user);
                 } else if (user instanceof Pupilo) {
+                    this.pupiloController.update(user);
                     this.stage.setScene(pupiloScene);
+                    this.controlador.setUsuarioLogado(user);
                 }else {
                     //this.loginController.aviso();
                 }
@@ -145,19 +153,31 @@ public class Main extends Application implements Observer{
             }
         }
         
-        else if (observable instanceof PupiloFXMLController) {
+        else if (observable instanceof PupiloController) {
             if (arg instanceof String) {
                 if (arg == "sair") {
-                    this.stage.setScene(loginScene);
+                    this.stage.setScene(this.inicialScene);
                 }
+            } else if (arg instanceof Sensei) {
+                ((Sensei)arg).addPupilo(this.controlador.getUsuarioLogado().getNomeDeUsuario());
+                this.controlador.updateUser(((Sensei)arg));
+                Pupilo user = (Pupilo) this.controlador.getUsuarioLogado();
+                user.setSenseiName(((Sensei)arg).getNomeDeUsuario());
+                this.controlador.updateUser(user);
             }
         }
         
-        else if (observable instanceof SenseiFXMLController) {
+        else if (observable instanceof SenseiController) {
             if (arg instanceof String) {
                 if (arg == "sair") {
-                    this.stage.setScene(loginScene);
+                    this.stage.setScene(inicialScene);
                 }
+            } else if (arg instanceof Image) {
+                Usuario user = this.controlador.getUsuarioLogado();
+                
+                user.setImg((Image) arg);
+                this.controlador.setUsuarioLogado(user);
+                this.controlador.updateUser(user);
             }
         }
         

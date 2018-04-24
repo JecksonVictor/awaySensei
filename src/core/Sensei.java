@@ -44,6 +44,15 @@ public class Sensei extends Usuario{
         pupilo_.addTreino(treino_);
     }
 
+    public ArrayList<String> getPupilos() {
+        return pupilos;
+    }
+
+    public void setPupilos(ArrayList<String> pupilos) {
+        this.pupilos = pupilos;
+    }
+    
+
     public ArrayList<Treino> getTreinosSalvos() {
         return treinosSalvos;
     }

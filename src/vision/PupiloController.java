@@ -9,7 +9,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import core.Pupilo;
 import core.Sensei;
+import core.Usuario;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -19,11 +21,13 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -52,6 +56,9 @@ public class PupiloController extends Observable implements Initializable, Obser
     @FXML
     private JFXToggleButton toggleEditProfile;
 
+    @FXML
+    public Label senseiNome; 
+    
     @FXML
     private JFXButton buttonChangeSensei;
     @FXML
@@ -89,6 +96,19 @@ public class PupiloController extends Observable implements Initializable, Obser
             super.notifyObservers(this.photoEdit.getImage());
         }
     }
+    
+    public void update (Usuario user) {
+        this.photoEdit.setImage(user.getImg());
+        
+        this.senseiNome.setText(((Pupilo)user).getSenseiName());
+        
+    }
+    
+    @FXML
+    public void sair () {
+        super.setChanged();
+        super.notifyObservers("sair");
+    }
 
     /**
      * Initializes the controller class.
@@ -105,7 +125,7 @@ public class PupiloController extends Observable implements Initializable, Obser
         try {
             mudaScene = new Scene(fxmlMuda.load());
         } catch (IOException ex) {
-            Logger.getLogger(PupiloFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PupiloController.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Controler da tela de seleção de senseis
         this.mudaControler = (EscolherSenseiFXMLController)fxmlMuda.getController();
@@ -126,7 +146,10 @@ public class PupiloController extends Observable implements Initializable, Obser
         
         else if (observable instanceof EscolherSenseiFXMLController) {
             if (arg instanceof Sensei) {
-                this.textSenseiNome.setText(((Sensei) arg).getNomeDeUsuario());
+                this.senseiNome.setText(((Sensei) arg).getNomeDeUsuario());
+                
+                super.setChanged();
+                super.notifyObservers(((Sensei) arg));
             }
         }
     }

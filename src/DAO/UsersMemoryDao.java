@@ -29,5 +29,18 @@ public class UsersMemoryDao implements UsersDao{
     public ArrayList<Usuario> getUsers() {
         return this.users;
     }
+
+    @Override
+    public void updateUser(Usuario user) {
+        for (Usuario user1 : users) {
+            if(user1.getNomeDeUsuario().equals(user.getNomeDeUsuario())) {
+                if(user1.getSenha().equals(user.getSenha())) {
+                    user1 = user;
+                    return;
+                }
+                return;
+            }
+        }
+    }
     
 }
