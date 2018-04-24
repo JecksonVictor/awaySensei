@@ -35,6 +35,9 @@ public class AdicionaTreinoFXMLController extends Observable implements Observer
     private void adicionarVideo () {
        super.setChanged();
        super.notifyObservers(new Treino(new Video(linkVideo.getText()), descricaoVideo.getText()));
+       
+       linkVideo.clear();
+       descricaoVideo.clear();
     }
     
     /**
