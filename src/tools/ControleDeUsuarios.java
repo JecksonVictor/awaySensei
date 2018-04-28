@@ -5,14 +5,14 @@ import DAO.UsersMemoryDao;
 import core.Faixa;
 import core.Pupilo;
 import core.Sensei;
+import core.Treino;
 import java.util.ArrayList;
 import java.util.Random;
 
 import core.Usuario;
-import java.util.Observable;
 import javafx.scene.image.Image;
 
-public class ControleDeUsuarios extends Observable{
+public class ControleDeUsuarios {
     private final UsersDao users;
     private final Autenticador aut;
     private Usuario usuarioLogado;
@@ -47,9 +47,6 @@ public class ControleDeUsuarios extends Observable{
             sen_.setUniqueID(String.valueOf(rand.nextInt(100)));
             sen_.setImage(new Image("/imgs/user.png"));
             this.users.addUser(sen_);
-            
-            super.setChanged();
-            super.notifyObservers(sen_);
         }
     }
     
@@ -67,5 +64,38 @@ public class ControleDeUsuarios extends Observable{
 
     public ArrayList<Usuario> getListaDeUsuarios() {
         return this.users.getUsers();
+    }
+    
+    public ArrayList<Sensei> getListaDeSenseis() {
+        ArrayList<Sensei> senseis = new ArrayList<>();
+        for (Usuario user : this.users.getUsers()) {
+            if (user instanceof Sensei) {
+                senseis.add((Sensei) user);
+            }
+        }
+        
+        return senseis;
+    }
+    
+    public ArrayList<Pupilo> getListaDePupilos() {
+        ArrayList<Pupilo> pupilos = new ArrayList<>();
+        for (Usuario user : this.users.getUsers()) {
+            if (user instanceof Pupilo) {
+                pupilos.add((Pupilo) user);
+            }
+        }
+        
+        return pupilos;
+    }
+    
+    public void addTreino(String name, Treino treino) {
+        for (Usuario user : this.users.getUsers()) {
+            if (user instanceof Pupilo) {
+                if (user.getNomeDeUsuario() == name) {
+                    ((Pupilo)user).addTreino(treino);
+                    return;
+                }
+            }
+        }
     }
 }

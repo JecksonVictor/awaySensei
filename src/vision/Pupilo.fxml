@@ -79,12 +79,8 @@
                         </AnchorPane>
                         <AnchorPane id="chatMessages" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <JFXListView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <JFXListView fx:id="menssagens" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children></AnchorPane>
-                        <JFXTextField id="chatImput">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding></JFXTextField>
                      </children>
                   </VBox>
                </children>
@@ -93,7 +89,7 @@
       </Tab>
       <Tab closable="false" text="Treinos">
          <content>
-            <JFXListView />
+            <JFXListView fx:id="treinos" />
          </content>
       </Tab>
       <Tab text="Progresso">

@@ -6,6 +6,7 @@
 package vision;
 
 import com.jfoenix.controls.JFXListView;
+import core.Pupilo;
 import core.Sensei;
 import core.Treino;
 import core.Usuario;
@@ -36,6 +37,7 @@ import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import run.Main;
 
 /**
  * FXML Controller class
@@ -59,20 +61,6 @@ public class SenseiController extends Observable implements Initializable, Obser
     
     private Scene addScene;
     private AdicionaTreinoFXMLController addControler;
-
-    @Override
-    public void update(Observable observable, Object arg) {
-        if (observable instanceof AdicionaTreinoFXMLController) {
-            if (arg instanceof Treino) {
-                this.treinosList.add(((Treino) arg).getDescricao());
-                this.treinos.getItems().clear();
-                this.treinosListView = FXCollections.observableArrayList(this.treinosList);
-                this.treinos.setItems(this.treinosListView);
-                
-                this.treinos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            }
-        }
-    }
     
     static class PupilosCell extends ListCell<String>
     {
@@ -85,6 +73,8 @@ public class SenseiController extends Observable implements Initializable, Obser
         public PupilosCell ()
         {
             super();
+            
+            name.setStyle("-fx-font-size:32px;-fx-font-weight: bold;-fx-text-fill:#5E34B1;-fx-margin-top: 10px;-fx-padding-left: 30px;");
             
             img.setFitHeight(50);
             img.setFitWidth(50);
@@ -99,8 +89,7 @@ public class SenseiController extends Observable implements Initializable, Obser
             setText(null);
             setGraphic(null);
             
-            if (name != null && !empty) 
-            {
+            if (name != null && !empty) {
                 this.name.setText(name);
                 setGraphic(hbox);
             }
@@ -114,8 +103,7 @@ public class SenseiController extends Observable implements Initializable, Obser
         Label name = new Label();
         Pane pane = new Pane();
         
-        public TreinosCell ()
-        {
+        public TreinosCell () {
             super();
             
             name.setStyle("-fx-font-size:32px;-fx-font-weight: bold;-fx-text-fill:#5E34B1;-fx-margin-top: 10px;-fx-padding-left: 30px;");
@@ -124,14 +112,12 @@ public class SenseiController extends Observable implements Initializable, Obser
             hbox.setHgrow(pane, Priority.ALWAYS);
         }
         
-        public void updateItem(String name, boolean empty)
-        {
+        public void updateItem(String name, boolean empty) {
             super.updateItem(name, empty);
             setText(null);
             setGraphic(null);
             
-            if (name != null && !empty) 
-            {
+            if (name != null && !empty) {
                 this.name.setText(name);
                 setGraphic(hbox);
             }
@@ -139,21 +125,51 @@ public class SenseiController extends Observable implements Initializable, Obser
     }
     
     @FXML
+    private void addTreino(ActionEvent event) throws IOException {
+        Stage st = new Stage();
+        st.setScene(this.addScene);
+        st.setTitle("Mudar Sensei");
+        st.initModality(Modality.WINDOW_MODAL);
+        st.show(); 
+    }
+    
+    @Override
+    public void update(Observable observable, Object arg) {
+        if (observable instanceof AdicionaTreinoFXMLController) {
+            if (arg instanceof Treino) {
+                this.treinosList.add(((Treino) arg).getDescricao());
+                
+                ((Sensei)Main.controlador.getUsuarioLogado()).addTreino((Treino) arg);
+                
+                this.treinos.getItems().clear();
+                this.treinosListView = FXCollections.observableArrayList(this.treinosList);
+                this.treinos.setItems(this.treinosListView);
+                this.treinos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+                
+            }
+        }
+    }
+    
+    @FXML
     private void removeTreino () {
         
-        for (String item : this.treinos.getSelectionModel().getSelectedItems()) {
+        for (String item : this.treinos.getSelectionModel().getSelectedItems()) 
             this.treinosList.remove(item);
-//            this.treinos.getItems().remove(item);
-        }
         
         this.treinos.getItems().clear();
         this.treinosListView = FXCollections.observableArrayList(this.treinosList);
         this.treinos.setItems(this.treinosListView);
-
-        this.treinos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        
+        this.treinos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); 
     }
     
+    
+    @FXML
+    private void enviarTreino () {
+        
+        for (Pupilo pupilo : Main.controlador.getListaDePupilos()) {
+            pupilo.addTreino(((Sensei)(Main.controlador.getUsuarioLogado())).getTreinosSalvos().get(this.treinos.getSelectionModel().getSelectedIndex()));
+        }
+    }
     
     // Aqui o usuário pode mudar a foto do perfil
     @FXML
@@ -175,16 +191,7 @@ public class SenseiController extends Observable implements Initializable, Obser
         super.setChanged();
         super.notifyObservers("sair");
     }
-    
-    @FXML
-    private void addTreino(ActionEvent event) throws IOException {
-        Stage st = new Stage();
-        st.setScene(this.addScene);
-        st.setTitle("Mudar Sensei");
-        st.initModality(Modality.WINDOW_MODAL);
-        st.show(); 
-    }
-    
+        
     public void update (Usuario user) {
         this.photoEdit.setImage(user.getImg());
         
@@ -196,6 +203,18 @@ public class SenseiController extends Observable implements Initializable, Obser
         
         this.listView = FXCollections.observableArrayList(this.list);
         this.pupilos.setItems(listView);
+        
+        this.treinosList.clear();
+        this.treinos.getItems().clear();
+        
+        for (Treino treino : ((Sensei)user).getTreinosSalvos()) {
+            this.treinosList.add(treino.getDescricao());
+        }
+        
+        this.treinosListView = FXCollections.observableArrayList(this.treinosList);
+        this.treinos.setItems(this.treinosListView);
+
+        this.treinos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         
     }
     

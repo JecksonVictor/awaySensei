@@ -39,6 +39,10 @@ public class Sensei extends Usuario{
     public void criarTreino(Video video_, String descricao_){
         this.treinosSalvos.add(new Treino(video_,descricao_));
     }
+    
+    public void addTreino(Treino tre){
+        this.treinosSalvos.add(tre);
+    }
 
     public void cadastrarTreino(Pupilo pupilo_, Treino treino_) {
         pupilo_.addTreino(treino_);

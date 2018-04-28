@@ -12,6 +12,7 @@ public class Pupilo extends Usuario{
     private Image image;
 
     public Pupilo() {
+        this.listTreinos = new ArrayList<>();
     }
 
     public String getSenseiName() {
@@ -20,7 +21,6 @@ public class Pupilo extends Usuario{
 
     public void setSenseiName(String senseiName) {
         this.senseiName = senseiName;
-        this.listTreinos = new ArrayList<Treino>();
     }
     
     public Image getImage() {
@@ -41,6 +41,7 @@ public class Pupilo extends Usuario{
 
     public Pupilo(String usuario, String senha) {
             super(usuario, senha);
+            this.listTreinos = new ArrayList<Treino>();
     }
     public Treino getTreino(String descricao) {
         for (Treino treino: listTreinos){

@@ -7,6 +7,7 @@ package run;
 
 import core.Pupilo;
 import core.Sensei;
+import core.Treino;
 import core.Usuario;
 import java.util.Observable;
 import java.util.Observer;
@@ -50,7 +51,7 @@ public class Main extends Application implements Observer{
     
     SenseiController senseiController;
    
-    ControleDeUsuarios controlador;
+    public static ControleDeUsuarios controlador;
     Autenticador aut;
     
     @Override
@@ -90,8 +91,6 @@ public class Main extends Application implements Observer{
         pupiloController.addObserver(this);
         senseiController.addObserver(this);
         
-        this.controlador.addObserver(pupiloController);
-        
         this.controlador.addSensei(new Sensei("sen1", "123"));
         this.controlador.addSensei(new Sensei("sen2", "123"));
         this.controlador.addSensei(new Sensei("sen3", "123"));
@@ -123,9 +122,9 @@ public class Main extends Application implements Observer{
                     this.stage.setScene(senseiScene);
                     this.controlador.setUsuarioLogado(user);
                 } else if (user instanceof Pupilo) {
-                    this.pupiloController.update(user);
-                    this.stage.setScene(pupiloScene);
                     this.controlador.setUsuarioLogado(user);
+                    this.pupiloController.update();
+                    this.stage.setScene(pupiloScene);
                 }else {
                     //this.loginController.aviso();
                 }
@@ -158,12 +157,6 @@ public class Main extends Application implements Observer{
                 if (arg == "sair") {
                     this.stage.setScene(this.inicialScene);
                 }
-            } else if (arg instanceof Sensei) {
-                ((Sensei)arg).addPupilo(this.controlador.getUsuarioLogado().getNomeDeUsuario());
-                this.controlador.updateUser(((Sensei)arg));
-                Pupilo user = (Pupilo) this.controlador.getUsuarioLogado();
-                user.setSenseiName(((Sensei)arg).getNomeDeUsuario());
-                this.controlador.updateUser(user);
             }
         }
         
@@ -172,13 +165,7 @@ public class Main extends Application implements Observer{
                 if (arg == "sair") {
                     this.stage.setScene(inicialScene);
                 }
-            } else if (arg instanceof Image) {
-                Usuario user = this.controlador.getUsuarioLogado();
-                
-                user.setImg((Image) arg);
-                this.controlador.setUsuarioLogado(user);
-                this.controlador.updateUser(user);
-            }
+            } 
         }
         
     }

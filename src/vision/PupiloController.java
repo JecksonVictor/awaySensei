@@ -6,11 +6,13 @@
 package vision;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import core.Pupilo;
 import core.Sensei;
+import core.Treino;
 import core.Usuario;
 import java.io.File;
 import java.io.IOException;
@@ -21,17 +23,25 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import run.Main;
 import tools.ControleDeUsuarios;
 
 /**
@@ -63,10 +73,45 @@ public class PupiloController extends Observable implements Initializable, Obser
     @FXML
     private JFXTextField textSenseiNome;
 
+    @FXML
+    private JFXListView treinos; 
+    private ArrayList<String> treinosList;
+    ObservableList<String> treinosListView;
     
     private Scene mudaScene;
     private EscolherSenseiFXMLController mudaControler;
     private ArrayList<Sensei> senseis;
+    
+    static class TreinosCell extends ListCell<String>
+    {
+        HBox hbox = new HBox();
+        Label name = new Label();
+        Pane pane = new Pane();
+        
+        public TreinosCell ()
+        {
+            super();
+            
+            name.setStyle("-fx-font-size:32px;-fx-font-weight: bold;-fx-text-fill:#5E34B1;-fx-margin-top: 10px;-fx-padding-left: 30px;");
+            
+            hbox.getChildren().addAll(name, pane);
+            hbox.setHgrow(pane, Priority.ALWAYS);
+        }
+        
+        public void updateItem(String name, boolean empty)
+        {
+            super.updateItem(name, empty);
+            setText(null);
+            setGraphic(null);
+            
+            if (name != null && !empty) 
+            {
+                this.name.setText(name);
+                setGraphic(hbox);
+            }
+        }
+    }
+    
     
     // Abre o modal com a tela de seleção de de senseis
     @FXML
@@ -96,11 +141,25 @@ public class PupiloController extends Observable implements Initializable, Obser
         }
     }
     
-    public void update (Usuario user) {
-        this.photoEdit.setImage(user.getImg());
+    public void update () {
+        this.photoEdit.setImage(Main.controlador.getUsuarioLogado().getImg());
+        this.senseiNome.setText(((Pupilo)Main.controlador.getUsuarioLogado()).getSenseiName());
         
-        this.senseiNome.setText(((Pupilo)user).getSenseiName());
+        for (Treino treino : ((Pupilo)Main.controlador.getUsuarioLogado()).getListTreino()) {
+            System.out.println(treino.getDescricao());
+        }
         
+        this.treinosList.clear();
+        this.treinos.getItems().clear();
+        
+        for (Treino treino : ((Pupilo)Main.controlador.getUsuarioLogado()).getListTreino()) {
+            this.treinosList.add(treino.getDescricao());
+        }
+        
+        this.treinosListView = FXCollections.observableArrayList(this.treinosList);
+        this.treinos.setItems(this.treinosListView);
+
+        this.treinos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
     
     @FXML
@@ -117,7 +176,7 @@ public class PupiloController extends Observable implements Initializable, Obser
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Instancia a lista de senseis
-        this.senseis = new ArrayList<>();
+        this.senseis = Main.controlador.getListaDeSenseis();
         
         // Carrega o layout da tela de seleção de senseis
         FXMLLoader fxmlMuda = new FXMLLoader(getClass().getResource("EscolherSenseiFXML.fxml"));
@@ -132,18 +191,17 @@ public class PupiloController extends Observable implements Initializable, Obser
         // Tela de seleção de senseis observa a tela de pupilo e a
         // tela de pupilo observa a tela de seleção de senseis
         this.mudaControler.addObserver(this);
+        
+        this.treinosList = new ArrayList<String>();
+        
+        this.treinosListView = FXCollections.observableArrayList(this.treinosList);
+        this.treinos.setItems(this.treinosListView);
+        this.treinos.setCellFactory(param -> new TreinosCell(){});
     }
     
     @Override
     public void update(Observable observable, Object arg) {
-        if (observable instanceof ControleDeUsuarios) {
-            if (arg instanceof Sensei) {
-                this.senseis.add((Sensei) arg);
-                this.mudaControler.addSensei((Sensei) arg);
-            }
-        }
-        
-        else if (observable instanceof EscolherSenseiFXMLController) {
+        if (observable instanceof EscolherSenseiFXMLController) {
             if (arg instanceof Sensei) {
                 this.senseiNome.setText(((Sensei) arg).getNomeDeUsuario());
                 
@@ -164,12 +222,4 @@ public class PupiloController extends Observable implements Initializable, Obser
         textUserMail.setDisable(status);
         textUserDescription.setDisable(status);        
     }
-    
-    /* Não usado no momento
-    @FXML
-    private void sair(ActionEvent event) {
-        super.setChanged();
-        super.notifyObservers("sair");
-    }
-    */
 }
